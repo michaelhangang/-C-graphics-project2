@@ -1,0 +1,4 @@
+﻿1>------ Build started: Project: Triangle, Configuration: Debug Win32 ------
+1>Triangle.cpp
+1>Triangle.vcxproj -> C:\Users\Han\Desktop\Triangle\Debug\Triangle.exe
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

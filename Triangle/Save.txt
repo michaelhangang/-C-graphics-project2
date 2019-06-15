@@ -1,0 +1,238 @@
+arena
+ postion -3.5, -7.7, 0
+
+ orientation 1.03, 0.02,-0.02 
+
+ scale 3.8
+
+ color 0.390001, 0.73, 1
+
+dragon1
+ postion -28.8, -2.4, -3.1
+
+ orientation 0.99, 0.56,0.69 
+
+ scale 11.73
+
+ color 1, 0.5, 0.31
+
+dragon2
+ postion -5.49996, 26.6, 4.7
+
+ orientation 0.0899999, 0.42,1.32 
+
+ scale 0.4
+
+ color 0, 1, 0
+
+warrior1
+ postion -1.80001, -1.6, 0.800001
+
+ orientation 0.969999, -0.43,-0.66 
+
+ scale 0.5
+
+ color 0.290001, 0.410001, 1
+
+warrior2
+ postion 16, -4.8, -1.6
+
+ orientation 1.27, -0.66,-1.05 
+
+ scale 0.42
+
+ color 0.290001, 0.410001, 1
+
+warrior3
+ postion -18.4, -6.8, -16.8
+
+ orientation -18.4, -6.8,-16.8 
+
+ scale 0.52
+
+ color 0.290001, 0.410001, 1
+
+warrior4
+ postion -14, -5.4, -22.4
+
+ orientation 1.59, -0.45,-1.48 
+
+ scale 0.5
+
+ color 0.290001, 0.410001, 1
+
+warrior5
+ postion 17.7, 3, -25.7001
+
+ orientation 1.66, -0.33,-1.91 
+
+ scale 0.38
+
+ color 0.290001, 0.410001, 1
+
+warrior6
+ postion -0.60003, -1.6, -29.5
+
+ orientation 1.66, -0.43,-1.84 
+
+ scale 0.44
+
+ color 0.290001, 0.410001, 1
+
+Thenatarius1
+ postion 12.2, -2.89999, 5.19998
+
+ orientation 0.97, 0.06,0.12 
+
+ scale 0.12
+
+ color 0.180001, 0.55, 1
+
+Thenatarius2
+ postion 15.8, -4.79999, 16.1
+
+ orientation 0.95, 0.01,0.12 
+
+ scale 0.12
+
+ color 0.180001, 0.55, 1
+
+Thenatarius3
+ postion -2.9, -2.99998, 9.49996
+
+ orientation 0.95, 0.06,0.12 
+
+ scale 0.14
+
+ color 0.180001, 0.55, 1
+
+Thenatarius4
+ postion 19.6, -4.89998, 8.99998
+
+ orientation 0.93, 7.45058e-09,0.12 
+
+ scale 0.12
+
+ color 0.180001, 0.55, 1
+
+Thenatarius5
+ postion 6.9, -2.09999, -6.80004
+
+ orientation 0.98, 0.08,0.18 
+
+ scale 0.16
+
+ color 0.180001, 0.55, 1
+
+Thenatarius6
+ postion 2.7, -13.4, 20.6
+
+ orientation 0.55, 0.06,0.12 
+
+ scale 0.12
+
+ color 0.180001, 0.55, 1
+
+owlmonk1
+ postion 21.3, -5.7, 20.4
+
+ orientation 0.85, -0.16,-0.469999 
+
+ scale 0.0999999
+
+ color -0.259999, 1, 1
+
+owlmonk2
+ postion 9.9, 2.3, -23.0001
+
+ orientation 1.01, 0.51,0.68 
+
+ scale 0.16
+
+ color -0.259999, 1, 1
+
+owlmonk3
+ postion 12.3, -3.2, -10.9
+
+ orientation 1.14, 0.0200002,-0.0599996 
+
+ scale 0.14
+
+ color -0.259999, 1, 1
+
+owlmonk4
+ postion 19.8, -1.9, -2.00001
+
+ orientation 0.98, -0.0499998,-0.19 
+
+ scale 0.12
+
+ color -0.259999, 1, 1
+
+owlmonk5
+ postion 22.6, -5.9, 16.5
+
+ orientation 0.9, -0.23,-0.37 
+
+ scale 0.0999999
+
+ color -0.259999, 1, 1
+
+owlmonk6
+ postion 5.99999, -2, 2.69999
+
+ orientation 1.01, 0.0100002,-0.18 
+
+ scale 0.12
+
+ color -0.259999, 1, 1
+
+Light # 1
+ postion 1.00004, 22.8, -12.3
+
+ atten 1, 0.083,2.22219e-19 
+
+ color 1,-0.0999993,0.68 
+
+Light # 2
+ postion 33.5001, -6.50009, 3.50001
+
+ atten 1, 0.039,3.12959e-30 
+
+ color 1,1,1 
+
+Light # 3
+ postion 10, -22.4001, 13.6
+
+ atten 1, 0.005,0.0568953 
+
+ color -0.629999,1.97,1 
+
+Light # 4
+ postion -28.3, -17.5, 18.5
+
+ atten 1, 0.0320009,4.22104e-12 
+
+ color 3.33,0.5,0.31 
+
+Light # 5
+ postion -15.1999, 2, 25.1001
+
+ atten 1, 0.015,0.00501816 
+
+ color 1,1.82,1 
+
+SpotLight # 1
+ postion -15.1999  2  25.1001
+
+ atten 1 0.015 0.00501816 
+
+ color 1,1,1 
+
+ direction-28.8 
+
+-2.4 
+
+-3.1 
+
+Camera -13,-18.7998,73.4994
