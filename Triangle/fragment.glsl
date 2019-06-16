@@ -5,7 +5,7 @@ in vec3 FragPos;
 out vec4 FragColor;
 
 uniform vec3 viewPos;
-uniform vec3 ourColor;
+uniform vec4 ourColor;
 uniform vec3 sphereColor;
 uniform bool isLightSphere;
 struct Light {
@@ -76,7 +76,7 @@ void main()
 	 }
 	 
     
-	FragColor = vec4(finalColor, 1.0);
+	FragColor = vec4(finalColor,ourColor.a);
 	
 }
 
@@ -105,8 +105,8 @@ vec3 CalcPointLight(Light light, vec3 norm, vec3 fragPos, vec3 viewDir){
     diffuse  *= attenuation;
     specular *= attenuation;
 
-
-	return (ambient + diffuse + specular) * ourColor;
+	
+	return (ambient + diffuse + specular)* ourColor.xyz;
 
 }
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir){
@@ -134,6 +134,6 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir){
     diffuse *= attenuation * intensity;
     specular *= attenuation * intensity;
    
-    return (ambient + diffuse + specular) * ourColor;
+    return (ambient + diffuse + specular)* ourColor.xyz;
 }
 

@@ -25,6 +25,9 @@
     <Filter Include="LightManager">
       <UniqueIdentifier>{c348f50f-c22e-4d84-b795-bf131e15ec89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{c5d2e35b-2f4d-453d-9bbe-d5e091c71667}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
@@ -76,26 +79,26 @@
     <None Include="fragment.glsl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="xyzrgb_dragon_simple.ply">
-      <Filter>Mesh</Filter>
-    </None>
     <None Include="Sphere.ply">
       <Filter>Mesh</Filter>
     </None>
-    <None Include="BM_3d_Low.ply">
-      <Filter>Mesh</Filter>
+    <None Include="Falcon_Body_054217_verts.ply">
+      <Filter>Assets</Filter>
     </None>
-    <None Include="Thenatarius.ply">
-      <Filter>Mesh</Filter>
+    <None Include="Asteroid_001.ply">
+      <Filter>Assets</Filter>
     </None>
-    <None Include="owl-monk-fixed-mesh.ply">
-      <Filter>Mesh</Filter>
+    <None Include="Asteroid_002.ply">
+      <Filter>Assets</Filter>
     </None>
-    <None Include="free_arena_ASCII_xyz.ply">
-      <Filter>Mesh</Filter>
+    <None Include="Asteroid_003.ply">
+      <Filter>Assets</Filter>
     </None>
-    <None Include="Dragon 2.5_ply.ply">
-      <Filter>Mesh</Filter>
+    <None Include="Asteroid_004.ply">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="Asteroid_005.ply">
+      <Filter>Assets</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

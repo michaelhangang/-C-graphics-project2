@@ -18,10 +18,7 @@
 #include"Mesh.h"
 #include"Light.h"
 using namespace glm;
-
-
-#pragma region  methods
-
+#pragma region method
 //auto adjust window when window is changed
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 //input control
@@ -33,17 +30,20 @@ bool isAltDownAlone(int mods);
 void drawMesh(Mesh mesh,int shaderId);
 void drawLightSphere(Mesh lightSphere, int shaderId);
 void drawSpotLightSphere(Mesh lightSphere, int shaderId);
-#pragma endregion
+
+void sortMeshes();
+#pragma endregion 
 
 #pragma region global variable
-//global variable
-glm::vec3 cameraPos = glm::vec3(-13, -18.7998, 73.4994);
+glm::vec3 cameraPos = glm::vec3(17, 3.1, 117.7);
 glm::vec3 cameraPos2 = glm::vec3(-15.8, 54.2003, 96.299);
 glm::vec3 cameraPos3 = glm::vec3(-9.8, -24.9998, 26.2994);
-glm::vec3 cameraTarget = glm::vec3(-8.8, -2.4, -3.1);
+glm::vec3 cameraTarget = glm::vec3(0, 1, 0);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 vector<Mesh> MeshToDraw;
+
+
 VAOManager VaoManager;
 LightManager lights;
 int indexSelectedMesh = 0;
@@ -53,10 +53,11 @@ int view = 0;
 //screen 
 int screenWidth = 1680;
 int creenHigh = 900;
-#pragma endregion global variable
+
+#pragma endregion
 
 int main(void)
-{
+{	
 #pragma region initialize and configure
 	//initialize and configure
 	glfwInit();
@@ -102,254 +103,159 @@ int main(void)
 	glDeleteShader(vertexShader.Id);
 	glDeleteShader(fragmentShader.Id);
 #pragma endregion 
-
 #pragma region  Get location of view, projection  camera 
 
 	// retrieve the matrix uniform locations
 	unsigned int viewLoc = glGetUniformLocation(shaderProgram, "view");
 	unsigned int projectionLoc = glGetUniformLocation(shaderProgram, "projection");
 	unsigned int cameraPosLoc = glGetUniformLocation(shaderProgram, "viewPos");
-#pragma endregion 
+#pragma endregion
 
-#pragma region model
-	//load model 1
-	Model arena("arena", "free_arena_ASCII_xyz.ply");
-	VaoManager.loadModelToVAO(arena);
-	Model dragon("dragon","xyzrgb_dragon_simple.ply");
-	VaoManager.loadModelToVAO(dragon);
-	Model flydragon("flydragon2", "Dragon 2.5_ply.ply");
-	VaoManager.loadModelToVAO(flydragon);
-	//load model 2
-	Model warrior("warrior","BM_3d_Low.ply");
-	VaoManager.loadModelToVAO(warrior);
-	
-	//load model 3
+#pragma region light mesh
+
 	Model sphere("sphere", "Sphere.ply");
 	VaoManager.loadModelToVAO(sphere);
-	//load model 4
-	Model Thenatarius("Thenatarius", "Thenatarius.ply");
-	VaoManager.loadModelToVAO(Thenatarius);
-
-	//load model 4
-	Model owlmonk("owlmonk", "owl-monk-fixed-mesh.ply");
-	VaoManager.loadModelToVAO(owlmonk);
-#pragma endregion  
-
-#pragma region mesh
-	//ligthphere
 	Mesh lightSphere("light", sphere);
 	lightSphere.pos = glm::vec3(-7.99999f, 0.f, 0);
 	lightSphere.scale = 0.2f;
 	lightSphere.isWireframe = true;
-	//create arena
-	Mesh arenaMesh("arena",arena);
-	arenaMesh.pos = vec3(-3.5, -7.7, 0);
-	arenaMesh.scale = 3.8f;
-	arenaMesh.orientation = vec3(1.03, 0.02, -0.02);
-	arenaMesh.colour = vec3(0.390001, 0.73, 1);
-	MeshToDraw.push_back(arenaMesh);
-	//create dragon
-	Mesh dragon1("dragon1",dragon);
-	dragon1.pos = glm::vec3(-28.8, -2.4, -3.1);
-	dragon1.scale = 11.73f;
-	dragon1.orientation = glm::vec3(0.99, 0.56, 0.69);
-	dragon1.colour = vec3(1.0f, 0.5f, 0.31f);
-	MeshToDraw.push_back(dragon1);
-	
-	Mesh dragon2("dragon2", flydragon);
-	dragon2.pos = glm::vec3(-5.49996, 26.6, 4.7);
-	dragon2.scale = 0.4f;
-	dragon2.orientation = glm::vec3(0.0899999, 0.42, 1.32);
-	dragon2.colour = vec3(0.0f, 1.f, 0.0f);
-	MeshToDraw.push_back(dragon2);
-	//
-	Mesh warrior1("warrior1", warrior);
-	warrior1.pos = glm::vec3(-1.80001, -1.6, 0.800001);
-	warrior1.scale = 0.5f;
-	warrior1.orientation = glm::vec3(0.969999, -0.43, -0.66);
-	warrior1.colour = vec3(0.290001, 0.410001, 1);
-	MeshToDraw.push_back(warrior1);
-	//
-	Mesh warrior2("warrior2", warrior);
-	warrior2.pos = glm::vec3(16, -4.8, -1.6);
-	warrior2.scale = 0.42f;
-	warrior2.orientation = glm::vec3(1.27, -0.66, -1.05);
-	warrior2.colour = vec3(0.290001, 0.410001, 1);
-	MeshToDraw.push_back(warrior2);
-	//
-	Mesh warrior3("warrior3", warrior);
-	warrior3.pos = glm::vec3(-18.4, -6.8, -16.8);
-	warrior3.scale = 0.52f;
-	warrior3.orientation = glm::vec3(-18.4, -6.8, -16.8);
-	warrior3.colour = vec3(0.290001, 0.410001, 1);
-	MeshToDraw.push_back(warrior3);
-	//
-	Mesh warrior4("warrior4", warrior);
-	warrior4.pos = glm::vec3(-14, -5.4, -22.4);
-	warrior4.scale = 0.5f;
-	warrior4.orientation = glm::vec3(1.59, -0.45, -1.48);
-	warrior4.colour = vec3(0.290001, 0.410001, 1);
-	MeshToDraw.push_back(warrior4);
-	//
-	Mesh warrior5("warrior5", warrior);
-	warrior5.pos = glm::vec3(17.7, 3, -25.7001);
-	warrior5.scale = 0.38f;
-	warrior5.orientation = glm::vec3(1.66, -0.33, -1.91);
-	warrior5.colour = vec3(0.290001, 0.410001, 1);
-	MeshToDraw.push_back(warrior5);
-	//
-	Mesh warrior6("warrior6", warrior);
-	warrior6.pos = glm::vec3(-0.60003, -1.6, -29.5);
-	warrior6.scale = 0.44f;
-	warrior6.orientation = glm::vec3(1.66, -0.43, -1.84);
-	warrior6.colour = vec3(0.290001, 0.410001, 1);
-	MeshToDraw.push_back(warrior6);
-	
-	//
-	Mesh Thenatarius1("Thenatarius1", Thenatarius);
-	Thenatarius1.pos = glm::vec3(12.2, -2.89999, 5.19998);
-	Thenatarius1.scale =(float)0.12;
-	Thenatarius1.orientation = glm::vec3(0.97, 0.06, 0.12);
-	Thenatarius1.colour = vec3(0.180001, 0.55, 1);
-	MeshToDraw.push_back(Thenatarius1);
-	//
-	Mesh Thenatarius2("Thenatarius2", Thenatarius);
-	Thenatarius2.pos = glm::vec3(15.8, -4.79999, 16.1);
-	Thenatarius2.scale = (float)0.12;
-	Thenatarius2.orientation = glm::vec3(0.95, 0.01, 0.12);
-	Thenatarius2.colour = vec3(0.180001, 0.55, 1);
-	MeshToDraw.push_back(Thenatarius2);
-	//
-	Mesh Thenatarius3("Thenatarius3", Thenatarius);
-	Thenatarius3.pos = glm::vec3(-2.9, -2.99998, 9.49996);
-	Thenatarius3.scale = (float)0.14;
-	Thenatarius3.orientation = glm::vec3(0.95, 0.06, 0.12);
-	Thenatarius3.colour = vec3(0.180001, 0.55, 1);
-	MeshToDraw.push_back(Thenatarius3);
-	//
-	Mesh Thenatarius4("Thenatarius4", Thenatarius);
-	Thenatarius4.pos = glm::vec3(19.6, -4.89998, 8.99998);
-	Thenatarius4.scale = (float)0.12;
-	Thenatarius4.orientation = glm::vec3(0.93, 7.45058e-09, 0.12);
-	Thenatarius4.colour = vec3(0.180001, 0.55, 1);
-	MeshToDraw.push_back(Thenatarius4);
-	//
-	Mesh Thenatarius5("Thenatarius5", Thenatarius);
-	Thenatarius5.pos = glm::vec3(6.9, -2.09999, -6.80004);
-	Thenatarius5.scale = (float)0.16;
-	Thenatarius5.orientation = glm::vec3(0.98, 0.08, 0.18);
-	Thenatarius5.colour = vec3(0.180001, 0.55, 1);
-	MeshToDraw.push_back(Thenatarius5);
-	//
-	Mesh Thenatarius6("Thenatarius6", Thenatarius);
-	Thenatarius6.pos = glm::vec3(2.7, -13.4, 20.6);
-	Thenatarius6.scale = (float)0.12;
-	Thenatarius6.orientation = glm::vec3(0.55, 0.06, 0.12);
-	Thenatarius6.colour = vec3(0.180001, 0.55, 1);
-	MeshToDraw.push_back(Thenatarius6);
+
+#pragma endregion light mesh
 
 	
-	//
-	Mesh owlmonk1("owlmonk1", owlmonk);
-	owlmonk1.pos = glm::vec3(21.3, -5.7, 20.4);
-	owlmonk1.scale = (float)0.0999999;
-	owlmonk1.orientation = glm::vec3(0.85, -0.16, -0.469999);
-	owlmonk1.colour = vec3(-0.259999, 1, 1);
-	MeshToDraw.push_back(owlmonk1);
-	//
-	Mesh owlmonk2("owlmonk2", owlmonk);
-	owlmonk2.pos = glm::vec3(9.9, 2.3, -23.0001);
-	owlmonk2.scale = (float)0.16;
-	owlmonk2.orientation = glm::vec3(1.01, 0.51, 0.68);
-	owlmonk2.colour = vec3(-0.259999, 1, 1);
-	MeshToDraw.push_back(owlmonk2);
-	//
-	Mesh owlmonk3("owlmonk3", owlmonk);
-	owlmonk3.pos = glm::vec3(12.3, -3.2, -10.9);
-	owlmonk3.scale = (float)0.14;
-	owlmonk3.orientation = glm::vec3(1.14, 0.0200002, -0.0599996);
-	owlmonk3.colour = vec3(-0.259999, 1, 1);
-	MeshToDraw.push_back(owlmonk3);
-	//
-	Mesh owlmonk4("owlmonk4", owlmonk);
-	owlmonk4.pos = glm::vec3(19.8, -1.9, -2.00001);
-	owlmonk4.scale = (float)0.12;
-	owlmonk4.orientation = glm::vec3(0.98, -0.0499998, -0.19);
-	owlmonk4.colour = vec3(-0.259999, 1, 1);
-	MeshToDraw.push_back(owlmonk4);
-	//
-	Mesh owlmonk5("owlmonk5", owlmonk);
-	owlmonk5.pos = glm::vec3(22.6, -5.9, 16.5);
-	owlmonk5.scale = (float)0.0999999;
-	owlmonk5.orientation = glm::vec3(0.9, -0.23, -0.37);
-	owlmonk5.colour = vec3(-0.259999, 1, 1);
-	MeshToDraw.push_back(owlmonk5);
-	//
-	Mesh owlmonk6("owlmonk6", owlmonk);
-	owlmonk6.pos = glm::vec3(5.99999, -2, 2.69999);
-	owlmonk6.scale = (float)0.12;
-	owlmonk6.orientation = glm::vec3(1.01, 0.0100002, -0.18);
-	owlmonk6.colour = vec3(-0.259999, 1, 1);
-	MeshToDraw.push_back(owlmonk6);
+#pragma region  load Model
+	Model falcon("falcon","Falcon_Body_054217_verts.ply");
+	VaoManager.loadModelToVAO(falcon);
+	
+	Model Asteroid_001("Asteroid_001", "Asteroid_001.ply");
+	VaoManager.loadModelToVAO(Asteroid_001);
+	
+	//load model 2
+	Model Asteroid_002("Asteroid_002","Asteroid_002.ply");
+	VaoManager.loadModelToVAO(Asteroid_002);
+	
+	Model Asteroid_003("Asteroid_003", "Asteroid_003.ply");
+	VaoManager.loadModelToVAO(Asteroid_003);
+	
+	Model Asteroid_004("Asteroid_004", "Asteroid_004.ply");
+	VaoManager.loadModelToVAO(Asteroid_004);
+	
+	Model Asteroid_005("Asteroid_005", "Asteroid_005.ply");
+	VaoManager.loadModelToVAO(Asteroid_005);
+#pragma endregion 
+	
+#pragma region mesh
+
+	//create falcon1
+	Mesh falcon1("falcon", falcon);
+	falcon1.pos = glm::vec3(12.7, 20.6, -7.6);
+	falcon1.scale = 0.133f;
+	falcon1.orientation = glm::vec3(3.07, -2.14, 1.68);
+	falcon1.colour = vec4(1.0f, 1.f, 1.f,1.f);
+	MeshToDraw.push_back(falcon1);
+	
+
+	Mesh Asteroid1("Asteroid_001", Asteroid_001);
+	Asteroid1.pos = glm::vec3(-8.69997, 70.5995, 3.09999);
+	Asteroid1.scale = 0.033f;
+	Asteroid1.orientation = glm::vec3(0.6, -0.2, 1.17);
+	Asteroid1.colour = vec4(1.0f, 1.f, 1.f, 1.0f);
+	MeshToDraw.push_back(Asteroid1);
+
+
+	Mesh Asteroid2("Asteroid_002", Asteroid_002);
+	Asteroid2.pos = glm::vec3(9.49999, -8.90004, 10.9);
+	Asteroid2.scale = 2.11f;
+	Asteroid2.colour = vec4(1.0f, 1.f, 1.f, 1.f);
+	//Asteroid2.orientation = glm::vec3(-3.07, -3.05, 1.68);
+	MeshToDraw.push_back(Asteroid2);
+
+	Mesh Asteroid3("Asteroid_003", Asteroid_003);
+	Asteroid3.pos = glm::vec3(12.9, 41.1999, -7.4);
+	Asteroid3.scale = 1.83f;	
+	Asteroid3.colour = vec4(1.0f, 1.f, 1.f, 1.f);
+
+	//Asteroid3.orientation = glm::vec3(-3.07, -3.05, 1.68);
+	MeshToDraw.push_back(Asteroid3);
+
+	Mesh Asteroid4("Asteroid_004", Asteroid_004);
+	Asteroid4.pos = glm::vec3(12.9, 43.4999, -17.8);
+	Asteroid4.scale = 4.25;
+	Asteroid4.colour = vec4(1.0f, 0.5f, 1.f, 1.f);
+
+	//Asteroid4.orientation = glm::vec3(-3.07, -3.05, 1.68);
+	MeshToDraw.push_back(Asteroid4);
+	
+	Mesh Asteroid5("Asteroid_005", Asteroid_005);
+	Asteroid5.pos = glm::vec3(12.1, 48.2998, -28.6001);
+	Asteroid5.scale = 13.1002;
+	Asteroid5.colour = vec4(0.4f, 1.f, 1.f, 1.f);
+	//Asteroid5.orientation = glm::vec3(-3.07, -3.05, 1.68);
+	MeshToDraw.push_back(Asteroid5);
+
 #pragma endregion 
 
 #pragma region point light
+
 	//light 
 	Light lightone;
-	lightone.position = vec3(1.00004, 22.8, -12.3);
-	lightone.atten = vec3(1, 0.083, 2.22219e-19);
-	lightone.diffuse = vec3(1, -0.0999993, 0.68);
+	lightone.position = vec3(19.5001, 35.8, 24.8);
+	lightone.atten = vec3(1, 0.00800001, 2.74103e-21);
+	lightone.diffuse = vec3(1);
 	lights.Lights.push_back(lightone);
 
 	//light2
 	Light light2;
-	light2.position = vec3(33.5001, -6.50009, 3.50001);
-	light2.atten = vec3(1, 0.039, 3.12959e-30);
+	light2.position = vec3(-8.29996, -6.50009, 7.90001);
+	light2.atten = vec3(1, 0.119, 2.10543e-29);
 	light2.diffuse = vec3(1, 1, 1);
 	lights.Lights.push_back(light2);
 	//
 	Light light3;
-	light3.position = vec3(10, -22.4001, 13.6);
-	light3.atten = vec3(1, 0.005, 0.0568953);
-	light3.diffuse = vec3(-0.629999, 1.97, 1);
+	light3.position = vec3(0.199998, 11.4, 5.39998);
+	light3.atten = vec3(1, 0.039, 0.0340892);
+	light3.diffuse = vec3( 1);
 	lights.Lights.push_back(light3);
 	//
 	Light light4;
 	light4.position = vec3(-28.3, -17.5, 18.5);
 	light4.atten = vec3(1, 0.0320009, 4.22104e-12);
 	light4.diffuse = vec3(3.33, 0.5, 0.31);
+	light4.turnOff();
 	lights.Lights.push_back(light4);
 	//
 	Light light5;
 	light5.position = vec3(-15.1999, 2, 25.1001);
 	light5.atten = vec3(1, 0.015, 0.00501816);
+	light5.turnOff();
 	light5.diffuse = vec3(1, 1.82, 1);
 	lights.Lights.push_back(light5);
 	lights.GetPointLightsUniformLocations(shaderProgram);
 #pragma endregion 
 
 #pragma region spot light
+
 	//Spot
 	SpotLight spotLight1;
 	spotLight1.position = vec3(-15.1999, 2, 25.1001);
-	//spotLight1.turnOff();
+	spotLight1.turnOff();
 	spotLight1.atten = vec3(1, 0.015, 0.00501816);
 	spotLight1.direction = vec3(-28.8, -2.4, -3.1);
 	lights.SpotLights.push_back(spotLight1);
 	lights.GetSpotLightsUniformLocations(shaderProgram);
 #pragma endregion
-
+	sortMeshes();
 //draw graphics
 	while (!glfwWindowShouldClose(window))
 	{
-    #pragma	region basic setting
+#pragma	region basic setting
 
 		float ratio;
 		int width, height;
 		glfwGetFramebufferSize(window, &width, &height);
 		ratio = width / (float)height;
 		glViewport(0, 0, width, height);
-
+		
 		//clear color
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
@@ -372,44 +278,47 @@ int main(void)
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniform3f(cameraPosLoc, cameraPos.x, cameraPos.y, cameraPos.z);
-
 #pragma endregion 	
-
-		//draw every mesh
-		for (vector<Mesh>::iterator iter = MeshToDraw.begin(); iter != MeshToDraw.end();iter++) {
-			Mesh mesh = *iter;
-			drawMesh(mesh,shaderProgram);
-		}
-
 		//draw light sphere
-		drawLightSphere(lightSphere,shaderProgram);
+		drawLightSphere(lightSphere, shaderProgram);
 		drawSpotLightSphere(lightSphere, shaderProgram);
-		
-		//draw color
+
+        //draw mesh
+			for (vector<Mesh>::iterator iter = MeshToDraw.begin(); iter != MeshToDraw.end(); iter++) {
+				Mesh mesh = *iter;
+			
+				drawMesh(mesh, shaderProgram);
+			}
+
+		//light up 
 		lights.CopyPointLightsValuesToShader();
 		lights.CopySpotLightsValuesToShader();
 
 #pragma region swap butters
+
 		//swap buffers
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 #pragma endregion 
+#pragma region stop 
 
-    #pragma region stop 
 	glfwDestroyWindow(window);
 	glfwTerminate();
 	std::exit(EXIT_SUCCESS);
 #pragma endregion 
+
 }
 
 
 
 #pragma region input setting 
 
+//input 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	const float cameraSpeed = 0.2f;
+  #pragma region change mesh
 	//change mesh
 	if (isShiftDownAlone(mods)) {
 		//change postion
@@ -520,8 +429,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			MeshToDraw[indexSelectedMesh].isWireframe = false;
 		return;
 	}
+#pragma endregion 
 
-    #pragma region point lights
+  #pragma region point lights
+
 	//adjust lights
 	if (isAltDownAlone(mods)) {
 		//change postion
@@ -615,9 +526,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		}
 		return;
 	}
-    #pragma endregion point lights
+#pragma endregion point lights
 
-    #pragma region spot lights
+  #pragma region spot lights
+
 	if( isCtrlDownAlone( mods)) {
 		//change postion
 		if (key == GLFW_KEY_A) {
@@ -736,7 +648,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 #pragma endregion  spot lights
 
-#pragma region basic control
+  #pragma region basic control
+
 	//save 
 	if (key == GLFW_KEY_Z && action == GLFW_PRESS)
 		SaveEverything();
@@ -770,6 +683,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		}
 	}
 #pragma endregion 
+
 }
 #pragma endregion 
 
@@ -793,7 +707,8 @@ void SaveEverything(void)
 			<< MeshToDraw[index].scale << "\n\n color "
 			<< MeshToDraw[index].colour.x << ", "
 			<< MeshToDraw[index].colour.y << ", "
-			<< MeshToDraw[index].colour.z << "\n\n";
+			<< MeshToDraw[index].colour.z << ", "
+			<< MeshToDraw[index].colour.a << "\n\n";
 
 	}
 
@@ -811,6 +726,9 @@ void SaveEverything(void)
 			<< lights.Lights[index].diffuse.x << ","
 			<< lights.Lights[index].diffuse.y << ","
 			<< lights.Lights[index].diffuse.z << " \n\n";
+
+			
+
 	}
 	for (unsigned int index = 0;
 		index < lights.SpotLights.size(); index++)
@@ -829,9 +747,8 @@ void SaveEverything(void)
 			<< lights.SpotLights[index].direction.x << " "
 			<< lights.SpotLights[index].direction.y << " "
 			<< lights.SpotLights[index].direction.z << " \n\n";
-		
-	}
 
+	}
 	saveFile <<"Camera "<< cameraPos.x << "," << cameraPos.y << "," << cameraPos.z;
 
 	saveFile.close();
@@ -840,8 +757,36 @@ void SaveEverything(void)
 }
 #pragma endregion 
 
-#pragma region mod control method
+void sortMeshes() {
+	vector<Mesh> transparentMesh;
+	vector<Mesh> temp;
+	map<float, Mesh> sorted;
+	for (vector<Mesh>::iterator iter = MeshToDraw.begin(); iter != MeshToDraw.end(); iter++) {
+		Mesh mesh = *iter;
+		if (mesh.colour.a < 1.0f) {
+			transparentMesh.push_back(mesh);
 
+		}
+		else
+			temp.push_back(mesh);
+	}
+	MeshToDraw.clear();
+	MeshToDraw.swap(temp);
+	//sort transparent mesh
+	for (unsigned int i = 0; i < transparentMesh.size(); i++)
+	{
+		float distance = length(cameraPos - transparentMesh[i].pos);
+		sorted[distance] = transparentMesh[i];
+	}
+	//put back to original container
+	for (map<float, Mesh>::reverse_iterator it = sorted.rbegin(); it != sorted.rend(); ++it)
+	{
+
+		MeshToDraw.push_back(it->second);
+	}
+
+
+}
 bool isShiftDownAlone(int mods)
 {
 	if ((mods & GLFW_MOD_SHIFT)== GLFW_MOD_SHIFT)
@@ -867,13 +812,10 @@ bool isCtrlDownAlone(int mods) {
 	return false;
 
 }
-#pragma endregion 
-
-#pragma region Draw meshes
 
 void drawMesh(Mesh mesh,int shaderId) {
-	//for (Mesh mesh : MeshToDraw) {
-		// create transformations
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glm::mat4 model = glm::mat4(1.0f);
 
 		glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
@@ -898,7 +840,7 @@ void drawMesh(Mesh mesh,int shaderId) {
 
 		//pass color to shaders
 		unsigned int colorLoc = glGetUniformLocation(shaderId, "ourColor");
-		glUniform3f(colorLoc, mesh.colour.x, mesh.colour.y, mesh.colour.z);
+		glUniform4f(colorLoc, mesh.colour.x, mesh.colour.y, mesh.colour.z, mesh.colour.a);
 
 		// Is the object wireframe
 		if (mesh.isWireframe)
@@ -915,11 +857,6 @@ void drawMesh(Mesh mesh,int shaderId) {
 		glBindVertexArray(mod.VAOId);
 		glDrawElements(GL_TRIANGLES, mod.numberOfIndices, GL_UNSIGNED_INT, 0);
 }
-
-#pragma endregion
-
-#pragma region Draw point light sphere
-
 void drawLightSphere(Mesh mesh,int shaderId) {
 	unsigned int sphereColourLoc = glGetUniformLocation(shaderId, "sphereColor");
 	unsigned int  isLightLoc = glGetUniformLocation(shaderId, "isLightSphere");
@@ -932,9 +869,6 @@ void drawLightSphere(Mesh mesh,int shaderId) {
 	glUniform1f(isLightLoc, (float)GL_FALSE);
 
 }
-#pragma endregion 
-
-#pragma region Draw spot light sphere
 void drawSpotLightSphere(Mesh lightSphere, int shaderId) {
 	unsigned int sphereColourLoc = glGetUniformLocation(shaderId, "sphereColor");
 	unsigned int  isLightLoc = glGetUniformLocation(shaderId, "isLightSphere");
@@ -947,7 +881,6 @@ void drawSpotLightSphere(Mesh lightSphere, int shaderId) {
 	glUniform1f(isLightLoc, (float)GL_FALSE);
 
 }
-#pragma endregion 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {

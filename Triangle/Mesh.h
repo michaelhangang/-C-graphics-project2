@@ -10,7 +10,7 @@ public:
 	string modelType;
 	string name;
 	glm::vec3 pos;			
-	glm::vec3 colour;		
+	glm::vec4 colour;		
 	glm::vec3 orientation;	 
 	float scale;		
 	bool isWireframe;	

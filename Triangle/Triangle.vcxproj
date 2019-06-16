@@ -171,15 +171,15 @@
     <ClInclude Include="Shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BM_3d_Low.ply" />
-    <None Include="Dragon 2.5_ply.ply" />
+    <None Include="Asteroid_001.ply" />
+    <None Include="Asteroid_002.ply" />
+    <None Include="Asteroid_003.ply" />
+    <None Include="Asteroid_004.ply" />
+    <None Include="Asteroid_005.ply" />
+    <None Include="Falcon_Body_054217_verts.ply" />
     <None Include="fragment.glsl" />
-    <None Include="free_arena_ASCII_xyz.ply" />
-    <None Include="owl-monk-fixed-mesh.ply" />
     <None Include="Sphere.ply" />
-    <None Include="Thenatarius.ply" />
     <None Include="vertex.glsl" />
-    <None Include="xyzrgb_dragon_simple.ply" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Save.txt" />
