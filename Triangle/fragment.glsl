@@ -2,6 +2,7 @@
 
 in vec3 Normal;
 in vec3 FragPos;
+in vec4 fUVx2;
 out vec4 FragColor;
 
 uniform vec3 viewPos;

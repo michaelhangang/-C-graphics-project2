@@ -5,8 +5,9 @@ using namespace std;
 struct sVert
 {
 	float x, y, z ;		// added "z"
-	float r, g, b;
-	//float nx, ny, nz;
+	
+	float nx, ny, nz;
+	float u0, v0, u1,v1;
 };
 
 
@@ -18,6 +19,8 @@ public:
 	unsigned int VAOId;
 	unsigned int numberOfIndices;
 	unsigned int numberOfVertices;
+
+	bool GenerateSphericalUVs; //uv
 	//
 	Model();
 	Model(string name,string fileName);

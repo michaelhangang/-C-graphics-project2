@@ -173,7 +173,7 @@ int main(void)
 	Mesh Asteroid3("Asteroid_003", Asteroid_003);
 	Asteroid3.pos = glm::vec3(12.9, 41.1999, -7.4);
 	Asteroid3.scale = 1.83f;	
-	Asteroid3.colour = vec4(1.0f, 1.f, 1.f, 1.f);
+	Asteroid3.colour = vec4(1.0f, 1.f, 1.f, 0.4f);
 
 	//Asteroid3.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid3);
@@ -181,7 +181,7 @@ int main(void)
 	Mesh Asteroid4("Asteroid_004", Asteroid_004);
 	Asteroid4.pos = glm::vec3(12.9, 43.4999, -17.8);
 	Asteroid4.scale = 4.25;
-	Asteroid4.colour = vec4(1.0f, 0.5f, 1.f, 1.f);
+	Asteroid4.colour = vec4(1.0f, 0.5f, 1.f, 0.6f);
 
 	//Asteroid4.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid4);
@@ -814,8 +814,11 @@ bool isCtrlDownAlone(int mods) {
 }
 
 void drawMesh(Mesh mesh,int shaderId) {
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	if (mesh.colour.a < 1.0f) {
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	}
 		glm::mat4 model = glm::mat4(1.0f);
 
 		glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
@@ -856,6 +859,10 @@ void drawMesh(Mesh mesh,int shaderId) {
 		Model mod = VaoManager.dateVAO.find(mesh.modelType)->second;
 		glBindVertexArray(mod.VAOId);
 		glDrawElements(GL_TRIANGLES, mod.numberOfIndices, GL_UNSIGNED_INT, 0);
+		if (mesh.colour.a < 1.0f) {
+			glDisable(GL_BLEND);
+
+		}
 }
 void drawLightSphere(Mesh mesh,int shaderId) {
 	unsigned int sphereColourLoc = glGetUniformLocation(shaderId, "sphereColor");
