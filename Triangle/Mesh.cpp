@@ -2,7 +2,7 @@
 
 Mesh::Mesh(){}
 
-Mesh::Mesh(string name, Model model):name(name),modelType(model.name)
+Mesh::Mesh(string name, Model model, string textureName):name(name),modelType(model.name),textureName(textureName)
 {
 	this->pos = glm::vec3(0.0f, 0.0f, 0.0f);				// 0,0,0 (origin)
 	this->colour = glm::vec4(1.0f, 1.0f, 1.0f,1.0f);		// 0,0,0,1 (black)

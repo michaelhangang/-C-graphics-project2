@@ -28,6 +28,9 @@
     <Filter Include="Assets">
       <UniqueIdentifier>{c5d2e35b-2f4d-453d-9bbe-d5e091c71667}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TextureManager">
+      <UniqueIdentifier>{41fd25d4-5f63-4fab-aa2d-7c46e0309f80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
@@ -51,6 +54,15 @@
     <ClCompile Include="Project.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="stdimage.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicTextureManager\TextureManager.cpp">
+      <Filter>TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>TextureManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -70,6 +82,15 @@
     </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>LightManager</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicTextureManager\TextureManager.h">
+      <Filter>TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>TextureManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

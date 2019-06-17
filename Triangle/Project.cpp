@@ -6,9 +6,8 @@
 #include <glm/vec4.hpp> 
 #include <glm/mat4x4.hpp> 
 #include <glm/gtc/matrix_transform.hpp>
-
+#include "stb_image.h"
 #include <glm/gtc/type_ptr.hpp> 
-
 #include <stdlib.h>
 #include <stdio.h>
 #include<iostream>
@@ -17,6 +16,8 @@
 #include"VAOManager.h"
 #include"Mesh.h"
 #include"Light.h"
+#include "Texture.h"
+#include "./BasicTextureManager/TextureManager.h"
 using namespace glm;
 #pragma region method
 //auto adjust window when window is changed
@@ -42,9 +43,8 @@ glm::vec3 cameraTarget = glm::vec3(0, 1, 0);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 vector<Mesh> MeshToDraw;
-
-
 VAOManager VaoManager;
+TextureManager textureManager;
 LightManager lights;
 int indexSelectedMesh = 0;
 int indexSelectedLight = 0;
@@ -110,6 +110,9 @@ int main(void)
 	unsigned int projectionLoc = glGetUniformLocation(shaderProgram, "projection");
 	unsigned int cameraPosLoc = glGetUniformLocation(shaderProgram, "viewPos");
 #pragma endregion
+	
+	
+
 
 #pragma region light mesh
 
@@ -122,8 +125,17 @@ int main(void)
 
 #pragma endregion light mesh
 
-	
+#pragma region texture
+	Texture rock_Textures ("rock_Textures","_original.jpg");
+	textureManager.Create2DTexture(rock_Textures,true);
+	Texture rock_Textures1("rock_Textures1", "depositphotos_15659203-Seamless-texture-surface-of-the.jpg");
+	textureManager.Create2DTexture(rock_Textures1, true);
+	Texture rock_Textures2("rock_Textures2", "GoRaptorsAlphaTransparency.bmp");
+	textureManager.Create2DTexture(rock_Textures2, true);
+#pragma endregion 
 #pragma region  load Model
+	
+
 	Model falcon("falcon","Falcon_Body_054217_verts.ply");
 	VaoManager.loadModelToVAO(falcon);
 	
@@ -142,51 +154,54 @@ int main(void)
 	
 	Model Asteroid_005("Asteroid_005", "Asteroid_005.ply");
 	VaoManager.loadModelToVAO(Asteroid_005);
+
+	
+
 #pragma endregion 
 	
 #pragma region mesh
 
 	//create falcon1
-	Mesh falcon1("falcon", falcon);
+	Mesh falcon1("falcon", falcon,"rock_Textures2");
 	falcon1.pos = glm::vec3(12.7, 20.6, -7.6);
-	falcon1.scale = 0.133f;
+	falcon1.scale = 13.3f;
 	falcon1.orientation = glm::vec3(3.07, -2.14, 1.68);
 	falcon1.colour = vec4(1.0f, 1.f, 1.f,1.f);
 	MeshToDraw.push_back(falcon1);
 	
 
-	Mesh Asteroid1("Asteroid_001", Asteroid_001);
+	Mesh Asteroid1("Asteroid_001", Asteroid_001, "rock_Textures1");
 	Asteroid1.pos = glm::vec3(-8.69997, 70.5995, 3.09999);
-	Asteroid1.scale = 0.033f;
+	Asteroid1.scale = 20.33f;
 	Asteroid1.orientation = glm::vec3(0.6, -0.2, 1.17);
 	Asteroid1.colour = vec4(1.0f, 1.f, 1.f, 1.0f);
 	MeshToDraw.push_back(Asteroid1);
 
 
-	Mesh Asteroid2("Asteroid_002", Asteroid_002);
+	Mesh Asteroid2("Asteroid_002", Asteroid_002, "rock_Textures1");
 	Asteroid2.pos = glm::vec3(9.49999, -8.90004, 10.9);
-	Asteroid2.scale = 2.11f;
+	Asteroid2.scale = 20.11f;
 	Asteroid2.colour = vec4(1.0f, 1.f, 1.f, 1.f);
 	//Asteroid2.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid2);
 
-	Mesh Asteroid3("Asteroid_003", Asteroid_003);
+	Mesh Asteroid3("Asteroid_003", Asteroid_003,"rock_Textures1" );
 	Asteroid3.pos = glm::vec3(12.9, 41.1999, -7.4);
-	Asteroid3.scale = 1.83f;	
-	Asteroid3.colour = vec4(1.0f, 1.f, 1.f, 0.4f);
+	Asteroid3.scale = 20.83f;	
+	Asteroid3.colour = vec4(1.0f, 1.f, 1.f, 1.f);
 
 	//Asteroid3.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid3);
 
-	Mesh Asteroid4("Asteroid_004", Asteroid_004);
+	Mesh Asteroid4("Asteroid_004", Asteroid_004, "rock_Textures");
 	Asteroid4.pos = glm::vec3(12.9, 43.4999, -17.8);
-	Asteroid4.scale = 4.25;
-	Asteroid4.colour = vec4(1.0f, 0.5f, 1.f, 0.6f);
+	Asteroid4.scale = 20.25;
+	Asteroid4.colour = vec4(1.0f, 0.5f, 1.f, 1.f);
 
 	//Asteroid4.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid4);
 	
-	Mesh Asteroid5("Asteroid_005", Asteroid_005);
+	Mesh Asteroid5("Asteroid_005", Asteroid_005, "rock_Textures");
 	Asteroid5.pos = glm::vec3(12.1, 48.2998, -28.6001);
 	Asteroid5.scale = 13.1002;
 	Asteroid5.colour = vec4(0.4f, 1.f, 1.f, 1.f);
@@ -814,11 +829,18 @@ bool isCtrlDownAlone(int mods) {
 }
 
 void drawMesh(Mesh mesh,int shaderId) {
+	//open blend function
 	if (mesh.colour.a < 1.0f) {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	}
+
+#pragma region texture binding 
+	
+
+#pragma endregion
+
 		glm::mat4 model = glm::mat4(1.0f);
 
 		glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
@@ -854,15 +876,26 @@ void drawMesh(Mesh mesh,int shaderId) {
 		{
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
-
+		GLint bUseTexture_UniLoc = glGetUniformLocation(shaderId, "bUseTexture");
 		//get VAO Id 
+		if (mesh.textureName != "") {
+		
+			glUniform1f(bUseTexture_UniLoc, (float)GL_TRUE);
+			unsigned int textureId =textureManager.getTextureIdFromName(mesh.textureName);
+			glBindTexture(GL_TEXTURE_2D, textureId);
+			
+		}
+		
+
 		Model mod = VaoManager.dateVAO.find(mesh.modelType)->second;
 		glBindVertexArray(mod.VAOId);
 		glDrawElements(GL_TRIANGLES, mod.numberOfIndices, GL_UNSIGNED_INT, 0);
+		glUniform1f(bUseTexture_UniLoc, (float)GL_FALSE);
 		if (mesh.colour.a < 1.0f) {
 			glDisable(GL_BLEND);
 
 		}
+		
 }
 void drawLightSphere(Mesh mesh,int shaderId) {
 	unsigned int sphereColourLoc = glGetUniformLocation(shaderId, "sphereColor");

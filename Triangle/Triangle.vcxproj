@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BasicTextureManager\TextureManager.cpp" />
     <ClCompile Include="glad.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -160,12 +161,17 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Project.cpp" />
+    <ClCompile Include="stdimage.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="VAOManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BasicTextureManager\TextureManager.h" />
     <ClInclude Include="globe.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="VAOManager.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Shader.h" />

@@ -3,45 +3,45 @@ falcon
 
  orientation 3.07, -2.14,1.68 
 
- scale 0.133
+ scale 13.3
 
  color 1, 1, 1, 1
 
 Asteroid_001
- postion -8.69997, 70.5995, 3.09999
+ postion -12.1, 64.1996, 3.89999
 
  orientation 0.6, -0.2,1.17 
 
- scale 0.033
+ scale 35.2997
 
  color 1, 1, 1, 1
 
 Asteroid_002
- postion 9.49999, -8.90004, 10.9
+ postion -3.90001, 10.8, 11.4
 
  orientation 0, 0,0 
 
- scale 2.11
+ scale 22.16
 
  color 1, 1, 1, 1
 
 Asteroid_003
- postion 12.9, 41.1999, -7.4
+ postion 13, 14.3, -41.0999
 
- orientation 0, 0,0 
+ orientation 0, 3.81,0.869999 
 
- scale 1.87
+ scale 20.83
 
  color 1, 1, 1, 1
 
 Asteroid_004
- postion 12.9, 43.4999, -17.8
+ postion 70.0995, 43.4999, -17.8
 
  orientation 0, 0,0 
 
- scale 4.25
+ scale 20.25
 
- color 1, 1, 1, 1
+ color 1, 0.5, 1, 1
 
 Asteroid_005
  postion 12.1, 48.2998, -28.6001
@@ -50,7 +50,7 @@ Asteroid_005
 
  scale 13.1002
 
- color 1, 1, 1, 1
+ color 0.4, 1, 1, 1
 
 Light # 1
  postion 19.5001, 35.8, 24.8
@@ -96,4 +96,4 @@ SpotLight # 1
 
  direction -28.8 -2.4 -3.1 
 
-Camera 17,3.1,117.7
+Camera 16.8,3.1,117.7

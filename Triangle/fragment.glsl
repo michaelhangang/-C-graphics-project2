@@ -5,6 +5,9 @@ in vec3 FragPos;
 in vec4 fUVx2;
 out vec4 FragColor;
 
+
+uniform sampler2D texSamp2D_00;
+uniform bool bUseTexture;
 uniform vec3 viewPos;
 uniform vec4 ourColor;
 uniform vec3 sphereColor;
@@ -52,6 +55,12 @@ void main()
 		return;
 	}
 	
+	if ( bUseTexture )
+   {
+	FragColor.rgb = texture( texSamp2D_00, fUVx2.xy ).rgb;
+	FragColor.a = ourColor.a;
+	return;	
+   }
 	//Point light
 	for(int index =0;index<NUMBEROFLIGHTS;index++){
 	   

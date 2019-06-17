@@ -1,0 +1,16 @@
+﻿  C24BitBMPpixel.cpp
+  cBasicTextureManager.cpp
+  CTextureFromBMP.cpp
+  Light.cpp
+  Mesh.cpp
+  Model.cpp
+  Shader.cpp
+  Project.cpp
+  VAOManager.cpp
+E:\GitHub\-C-graphics-project2\Triangle\Project.cpp(210,27): warning C4305:  '=': truncation from 'double' to 'float'
+  glad.c
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 974 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Triangle.vcxproj -> E:\GitHub\-C-graphics-project2\x64\Release\Project2.exe

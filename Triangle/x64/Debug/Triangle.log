@@ -1,3 +1,3 @@
-﻿D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(452,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (Project1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  VAOManager.cpp
+﻿  Project.cpp
+E:\GitHub\-C-graphics-project2\Triangle\Project.cpp(206,27): warning C4305:  '=': truncation from 'double' to 'float'
   Triangle.vcxproj -> E:\GitHub\-C-graphics-project2\x64\Debug\Project2.exe
