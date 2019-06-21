@@ -13,6 +13,10 @@ uniform sampler2D texSamp2D_01;
 uniform bool bUseTexture;
 uniform bool isUseOneTexture;
 uniform bool isUseTwoTexture;
+
+uniform sampler2D texSamp2D_Alpha;
+uniform bool bUseAlphaTexture;
+
 uniform vec3 viewPos;
 uniform vec4 ourColor;
 uniform vec3 sphereColor;
@@ -67,9 +71,11 @@ void main()
 	if(isUseOneTexture)
 	color.xyz =texture( texSamp2D_00, fUVx2.xy ).rgb;
 	else if(isUseTwoTexture)
-		color.xyz =mix( texture( texSamp2D_00, fUVx2.xy ),texture( texSamp2D_01, fUVx2.xy ),0.1).rgb;
+		color.xyz =mix( texture( texSamp2D_00, fUVx2.xy ),texture( texSamp2D_01, fUVx2.xy ),0.1).rgb;  //0.1 second color
 
    }
+
+   
 	//Point light
 	for(int index =0;index<NUMBEROFLIGHTS;index++){
 	   
@@ -94,8 +100,17 @@ void main()
 	
 	 }
 	 
-    
+	
+ 
+ 
 	FragColor = vec4(finalColor,color.a);
+	 if ( bUseAlphaTexture )
+	{
+		// Pass the 4th value (alpha) as the transparency value
+		
+		FragColor.a = texture(texSamp2D_Alpha, fUVx2.xy ).r;
+	}
+	
 	
 }
 

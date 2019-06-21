@@ -134,6 +134,9 @@ int main(void)
 	textureManager.Create2DTexture(rock_Textures2, true);
 	Texture SpidermanUV_square("SpidermanUV_square", "SpidermanUV_square.bmp");
 	textureManager.Create2DTexture(SpidermanUV_square, true);
+	/*Texture Alpha_texture();
+	textureManager.Create2DTexture(SpidermanUV_square, true);*/
+
 #pragma endregion 
 #pragma region  load Model
 	
@@ -172,6 +175,8 @@ int main(void)
 	falcon1.scale = 0.1f;
 	falcon1.orientation = glm::vec3(3.07, -2.14, 1.68);
 	falcon1.colour = vec4(1.0f, 1.f, 1.f,1.f);
+	falcon1.isUseAlphaTexture = true;
+	falcon1.alphaTextureName = "rock_Textures2";
 	MeshToDraw.push_back(falcon1);
 	
 
@@ -186,7 +191,7 @@ int main(void)
 	Mesh Asteroid2("Asteroid_002", Asteroid_002, "rock_Textures1");
 	Asteroid2.pos = glm::vec3(9.49999, -8.90004, 10.9);
 	Asteroid2.scale = 20.11f;
-	Asteroid2.colour = vec4(1.0f, 1.f, 1.f, .4f);
+	Asteroid2.colour = vec4(1.0f, 1.f, 1.f, 1.f);
 	//Asteroid2.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid2);
 
@@ -840,7 +845,7 @@ bool isCtrlDownAlone(int mods) {
 
 void drawMesh(Mesh mesh,int shaderId) {
 	//open blend function
-	if (mesh.colour.a < 1.0f) {
+	if (mesh.colour.a < 1.0f||mesh.isUseAlphaTexture) {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -934,7 +939,17 @@ void drawMesh(Mesh mesh,int shaderId) {
 			}
 		
 		}
+		//check weather to use alphatexture
+		GLint bUseAlphaTexture_UniLoc = glGetUniformLocation(shaderId, "bUseAlphaTexture");
+		if (mesh.isUseAlphaTexture) {
+			GLint texSamp2D_Alpha_UniLoc = glGetUniformLocation(shaderId, "texSamp2D_Alpha");
 		
+			glUniform1f(bUseAlphaTexture_UniLoc, (float)GL_TRUE);
+			GLuint	 alphaModTextureNumber = textureManager.getTextureIdFromName(mesh.alphaTextureName);
+			glActiveTexture(GL_TEXTURE31);	// Pick the last one
+			glBindTexture(GL_TEXTURE_2D, alphaModTextureNumber);
+			glUniform1i(texSamp2D_Alpha_UniLoc, 31);	// NOT GL_TEXTURE0, but the actual 0
+		}
 
 		Model mod = VaoManager.dateVAO.find(mesh.modelType)->second;
 		glBindVertexArray(mod.VAOId);
@@ -942,7 +957,9 @@ void drawMesh(Mesh mesh,int shaderId) {
 		glUniform1f(bUseTexture_UniLoc, (float)GL_FALSE);
 		glUniform1f(isUseOneTexture_UniLoc, (float)GL_FALSE);
 		glUniform1f(isUseTwoTexture_UniLoc, (float)GL_FALSE);
-		if (mesh.colour.a < 1.0f) {
+		glUniform1f(bUseAlphaTexture_UniLoc, (float)GL_FALSE);
+
+		if (mesh.colour.a < 1.0f || mesh.isUseAlphaTexture) {
 			glDisable(GL_BLEND);
 
 		}

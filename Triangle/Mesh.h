@@ -11,6 +11,8 @@ class Mesh {
 public:	
 	string modelType;
 	vector<string> textureName;
+	string alphaTextureName;
+	bool isUseAlphaTexture;
 	string name;
 	glm::vec3 pos;			
 	glm::vec4 colour;		

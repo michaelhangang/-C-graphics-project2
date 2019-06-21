@@ -13,4 +13,6 @@ Mesh::Mesh(string name, Model model, string textureName1, string textureName2):n
 	this->textureName.push_back(textureName1);
 	if(textureName2!="")
 	this->textureName.push_back(textureName2);
+	isUseAlphaTexture = false;
+	alphaTextureName = "";
 }
