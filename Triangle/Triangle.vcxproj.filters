@@ -121,6 +121,12 @@
     <None Include="Asteroid_005.ply">
       <Filter>Assets</Filter>
     </None>
+    <None Include="Quad_1.ply">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="legospiderman_All.ply">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Save.txt">

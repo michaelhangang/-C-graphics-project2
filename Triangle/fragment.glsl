@@ -39,8 +39,8 @@ uniform Light theLights[NUMBEROFLIGHTS];
 const int NUMBEROFSPOTLIGHTS = 1;
 uniform SpotLight theSpotLights[NUMBEROFSPOTLIGHTS];
 
-vec3 CalcPointLight(Light light, vec3 normal, vec3 fragPos, vec3 viewDir);
-vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
+vec3 CalcPointLight(Light light, vec3 normal, vec3 fragPos, vec3 viewDir,vec4 color);
+vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir,vec4 color);
 
 void main()
 {
@@ -49,6 +49,7 @@ void main()
 	vec3 viewDir = normalize(viewPos - FragPos);
 
 	vec3 finalColor= vec3(0.0) ;
+	vec4 color =ourColor;
 	
 	if(isLightSphere){
 	    FragColor = vec4(sphereColor, 1.0);
@@ -57,9 +58,9 @@ void main()
 	
 	if ( bUseTexture )
    {
-	FragColor.rgb = texture( texSamp2D_00, fUVx2.xy ).rgb;
-	FragColor.a = ourColor.a;
-	return;	
+	//FragColor.rgb = texture( texSamp2D_00, fUVx2.xy ).rgb;
+	//color.a = ourColor.a;
+	color.xyz = texture( texSamp2D_00, fUVx2.xy ).rgb;
    }
 	//Point light
 	for(int index =0;index<NUMBEROFLIGHTS;index++){
@@ -69,7 +70,7 @@ void main()
 			continue;
 		   }
 
-	   finalColor +=CalcPointLight(theLights[index],  norm,  FragPos,  viewDir) ;
+	   finalColor +=CalcPointLight(theLights[index],  norm,  FragPos,  viewDir, color) ;
 	
 	 }
 	
@@ -81,16 +82,16 @@ void main()
 			continue;
 		   }
 
-	   finalColor +=CalcSpotLight(theSpotLights[index],  norm,  FragPos,  viewDir) ;
+	   finalColor +=CalcSpotLight(theSpotLights[index],  norm,  FragPos,  viewDir, color) ;
 	
 	 }
 	 
     
-	FragColor = vec4(finalColor,ourColor.a);
+	FragColor = vec4(finalColor,color.a);
 	
 }
 
-vec3 CalcPointLight(Light light, vec3 norm, vec3 fragPos, vec3 viewDir){
+vec3 CalcPointLight(Light light, vec3 norm, vec3 fragPos, vec3 viewDir,vec4 color){
 	   
     float ambientStrength = 0.05;
 		 
@@ -116,10 +117,10 @@ vec3 CalcPointLight(Light light, vec3 norm, vec3 fragPos, vec3 viewDir){
     specular *= attenuation;
 
 	
-	return (ambient + diffuse + specular)* ourColor.xyz;
+	return (ambient + diffuse + specular)* color.xyz;
 
 }
-vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir){
+vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir,vec4 color){
      float ambientStrength = 0.0;
 		 
     vec3 lightDir = normalize(light.position - fragPos);
@@ -144,6 +145,6 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir){
     diffuse *= attenuation * intensity;
     specular *= attenuation * intensity;
    
-    return (ambient + diffuse + specular)* ourColor.xyz;
+    return (ambient + diffuse + specular)* color.xyz;
 }
 

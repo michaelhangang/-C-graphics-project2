@@ -184,6 +184,8 @@
     <None Include="Asteroid_005.ply" />
     <None Include="Falcon_Body_054217_verts.ply" />
     <None Include="fragment.glsl" />
+    <None Include="legospiderman_All.ply" />
+    <None Include="Quad_1.ply" />
     <None Include="Sphere.ply" />
     <None Include="vertex.glsl" />
   </ItemGroup>

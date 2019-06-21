@@ -132,6 +132,8 @@ int main(void)
 	textureManager.Create2DTexture(rock_Textures1, true);
 	Texture rock_Textures2("rock_Textures2", "GoRaptorsAlphaTransparency.bmp");
 	textureManager.Create2DTexture(rock_Textures2, true);
+	Texture SpidermanUV_square("SpidermanUV_square", "SpidermanUV_square.bmp");
+	textureManager.Create2DTexture(SpidermanUV_square, true);
 #pragma endregion 
 #pragma region  load Model
 	
@@ -155,7 +157,10 @@ int main(void)
 	Model Asteroid_005("Asteroid_005", "Asteroid_005.ply");
 	VaoManager.loadModelToVAO(Asteroid_005);
 
-	
+	Model legospiderman_body("legospiderman_body", "legospiderman_All.ply");
+	legospiderman_body.GenerateSphericalUVs = false;
+	VaoManager.loadModelToVAO(legospiderman_body);
+
 
 #pragma endregion 
 	
@@ -164,7 +169,7 @@ int main(void)
 	//create falcon1
 	Mesh falcon1("falcon", falcon,"rock_Textures2");
 	falcon1.pos = glm::vec3(12.7, 20.6, -7.6);
-	falcon1.scale = 13.3f;
+	falcon1.scale = 0.1f;
 	falcon1.orientation = glm::vec3(3.07, -2.14, 1.68);
 	falcon1.colour = vec4(1.0f, 1.f, 1.f,1.f);
 	MeshToDraw.push_back(falcon1);
@@ -174,7 +179,7 @@ int main(void)
 	Asteroid1.pos = glm::vec3(-8.69997, 70.5995, 3.09999);
 	Asteroid1.scale = 20.33f;
 	Asteroid1.orientation = glm::vec3(0.6, -0.2, 1.17);
-	Asteroid1.colour = vec4(1.0f, 1.f, 1.f, 1.0f);
+	Asteroid1.colour = vec4(1.0f, 1.f, 1.f, 1.f);
 	MeshToDraw.push_back(Asteroid1);
 
 
@@ -208,6 +213,9 @@ int main(void)
 	//Asteroid5.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid5);
 
+	Mesh spiderMan("spiderMan", legospiderman_body,"SpidermanUV_square");
+	spiderMan.pos = vec3(9.49999, -8.90004, 10.9);
+	MeshToDraw.push_back(spiderMan);
 #pragma endregion 
 
 #pragma region point light
@@ -348,20 +356,20 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		}
 		if (key == GLFW_KEY_W) {
 			MeshToDraw[indexSelectedMesh].pos.z += 0.1f;
-			cout << MeshToDraw[indexSelectedMesh].pos.x << endl;
+			cout << MeshToDraw[indexSelectedMesh].pos.z << endl;
 		}
 		if (key == GLFW_KEY_S) {
 			MeshToDraw[indexSelectedMesh].pos.z -= 0.1f;
-			cout << MeshToDraw[indexSelectedMesh].pos.x << endl;
+			cout << MeshToDraw[indexSelectedMesh].pos.z << endl;
 		}
 
 		if (key == GLFW_KEY_Q) {
 			MeshToDraw[indexSelectedMesh].pos.y += 0.1f;
-			cout << MeshToDraw[indexSelectedMesh].pos.x << endl;
+			cout << MeshToDraw[indexSelectedMesh].pos.y << endl;
 		}
 		if (key == GLFW_KEY_E) {
 			MeshToDraw[indexSelectedMesh].pos.y -= 0.1f;
-			cout << MeshToDraw[indexSelectedMesh].pos.x << endl;
+			cout << MeshToDraw[indexSelectedMesh].pos.y << endl;
 		}
 
 		//change scale
@@ -876,14 +884,24 @@ void drawMesh(Mesh mesh,int shaderId) {
 		{
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
+
+
 		GLint bUseTexture_UniLoc = glGetUniformLocation(shaderId, "bUseTexture");
 		//get VAO Id 
 		if (mesh.textureName != "") {
-		
-			glUniform1f(bUseTexture_UniLoc, (float)GL_TRUE);
-			unsigned int textureId =textureManager.getTextureIdFromName(mesh.textureName);
-			glBindTexture(GL_TEXTURE_2D, textureId);
 			
+			glUniform1f(bUseTexture_UniLoc, (float)GL_TRUE);
+
+			
+			
+			GLuint texture00Unit = 0;			// Texture unit go from 0 to 79
+			glActiveTexture(texture00Unit + GL_TEXTURE0);	// GL_TEXTURE0 = 33984
+
+		    GLuint	 textureId =textureManager.getTextureIdFromName(mesh.textureName);
+			glBindTexture(GL_TEXTURE_2D, textureId);
+			GLint texSamp2D_00_UniLoc
+				= glGetUniformLocation(shaderId, "texSamp2D_00");
+			glUniform1i(texSamp2D_00_UniLoc, texture00Unit);
 		}
 		
 

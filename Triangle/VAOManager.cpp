@@ -38,15 +38,28 @@ void VAOManager::loadModelToVAO(Model &modelName) {
 
 		//load  vertex attributes
 		for (unsigned int i = 0; i < modelName.numberOfVertices; i++) {
+			if (modelName.GenerateSphericalUVs) {
+				iff >> modelName.pVertices[i].x >> modelName.pVertices[i].y
+					>> modelName.pVertices[i].z >> modelName.pVertices[i].nx
 
-			iff >> modelName.pVertices[i].x>> modelName.pVertices[i].y
-				>> modelName.pVertices[i].z>> modelName.pVertices[i].nx
+					>> modelName.pVertices[i].ny >> modelName.pVertices[i].nz;
+				modelName.pVertices[i].u0 = 0.0f;
+				modelName.pVertices[i].u1 = 0.0f;
+				modelName.pVertices[i].v0 = 0.0f;
+				modelName.pVertices[i].v1 = 0.0f;
 
-				>>modelName.pVertices[i].ny>> modelName.pVertices[i].nz;
-			modelName.pVertices[i].u0 = 0.0f;
-			modelName.pVertices[i].u1 = 0.0f;
-			modelName.pVertices[i].v0 = 0.0f;
-			modelName.pVertices[i].v1 = 0.0f;
+			}
+			else {
+
+				iff >> modelName.pVertices[i].x >> modelName.pVertices[i].y
+					>> modelName.pVertices[i].z >> modelName.pVertices[i].nx
+
+					>> modelName.pVertices[i].ny >> modelName.pVertices[i].nz
+					>> modelName.pVertices[i].u0 >> modelName.pVertices[i].v0;
+				modelName.pVertices[i].u1 = 0.0f;
+				modelName.pVertices[i].v1 = 0.0f;
+
+			}
 		}
 		
 		unsigned int tem = 0;
@@ -167,7 +180,7 @@ void VAOManager::m_GenTextureCoordsSpherical(Model& drawInfo, enumTEXCOORDBIAS u
 			if (!zUsed)	xyz.z = drawInfo.pVertices[index].z;
 		}
 
-		glm::normalize(xyz);
+		xyz =glm::normalize(xyz);
 
 		if (fast)
 		{
