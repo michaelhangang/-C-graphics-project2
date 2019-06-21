@@ -167,7 +167,7 @@ int main(void)
 #pragma region mesh
 
 	//create falcon1
-	Mesh falcon1("falcon", falcon,"rock_Textures2");
+	Mesh falcon1("falcon", falcon);
 	falcon1.pos = glm::vec3(12.7, 20.6, -7.6);
 	falcon1.scale = 0.1f;
 	falcon1.orientation = glm::vec3(3.07, -2.14, 1.68);
@@ -186,7 +186,7 @@ int main(void)
 	Mesh Asteroid2("Asteroid_002", Asteroid_002, "rock_Textures1");
 	Asteroid2.pos = glm::vec3(9.49999, -8.90004, 10.9);
 	Asteroid2.scale = 20.11f;
-	Asteroid2.colour = vec4(1.0f, 1.f, 1.f, 1.f);
+	Asteroid2.colour = vec4(1.0f, 1.f, 1.f, .4f);
 	//Asteroid2.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid2);
 
@@ -213,8 +213,10 @@ int main(void)
 	//Asteroid5.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid5);
 
-	Mesh spiderMan("spiderMan", legospiderman_body,"SpidermanUV_square");
+	Mesh spiderMan("spiderMan", legospiderman_body,"SpidermanUV_square", "rock_Textures2");
 	spiderMan.pos = vec3(9.49999, -8.90004, 10.9);
+	spiderMan.scale = 3.52;
+	spiderMan.orientation = glm::vec3(-1.39, -1.38, 0);
 	MeshToDraw.push_back(spiderMan);
 #pragma endregion 
 
@@ -887,21 +889,50 @@ void drawMesh(Mesh mesh,int shaderId) {
 
 
 		GLint bUseTexture_UniLoc = glGetUniformLocation(shaderId, "bUseTexture");
+		GLint isUseOneTexture_UniLoc = glGetUniformLocation(shaderId, "isUseOneTexture");
+		GLint isUseTwoTexture_UniLoc = glGetUniformLocation(shaderId, "isUseTwoTexture");
 		//get VAO Id 
-		if (mesh.textureName != "") {
-			
+		if (mesh.textureName.size() > 0) {
+
 			glUniform1f(bUseTexture_UniLoc, (float)GL_TRUE);
 
+			if (mesh.textureName.size() == 1) {
 			
-			
-			GLuint texture00Unit = 0;			// Texture unit go from 0 to 79
-			glActiveTexture(texture00Unit + GL_TEXTURE0);	// GL_TEXTURE0 = 33984
+				glUniform1f(isUseOneTexture_UniLoc, (float)GL_TRUE);
+				//unit 00
+				GLuint texture00Unit = 0;			// Texture unit go from 0 to 79
+				glActiveTexture(texture00Unit + GL_TEXTURE0);	// GL_TEXTURE0 = 33984
 
-		    GLuint	 textureId =textureManager.getTextureIdFromName(mesh.textureName);
-			glBindTexture(GL_TEXTURE_2D, textureId);
-			GLint texSamp2D_00_UniLoc
-				= glGetUniformLocation(shaderId, "texSamp2D_00");
-			glUniform1i(texSamp2D_00_UniLoc, texture00Unit);
+				GLuint	 textureId = textureManager.getTextureIdFromName(mesh.textureName[0]);
+				glBindTexture(GL_TEXTURE_2D, textureId);
+				GLint texSamp2D_00_UniLoc
+					= glGetUniformLocation(shaderId, "texSamp2D_00");
+				glUniform1i(texSamp2D_00_UniLoc, texture00Unit);
+			}
+		
+			else if (mesh.textureName.size() == 2) {
+				glUniform1f(isUseTwoTexture_UniLoc, (float)GL_TRUE);
+				//unit 00
+				GLuint texture00Unit = 0;			// Texture unit go from 0 to 79
+				glActiveTexture(texture00Unit + GL_TEXTURE0);	// GL_TEXTURE0 = 33984
+
+				GLuint	 textureId = textureManager.getTextureIdFromName(mesh.textureName[0]);
+				glBindTexture(GL_TEXTURE_2D, textureId);
+				GLint texSamp2D_00_UniLoc
+					= glGetUniformLocation(shaderId, "texSamp2D_00");
+				glUniform1i(texSamp2D_00_UniLoc, texture00Unit);
+
+				//unit 01
+				GLuint texture01Unit = 1;			// Texture unit go from 0 to 79
+				glActiveTexture(texture01Unit + GL_TEXTURE0);	// GL_TEXTURE0 = 33984
+
+				GLuint	 textureId2 = textureManager.getTextureIdFromName(mesh.textureName[1]);
+				glBindTexture(GL_TEXTURE_2D, textureId2);
+				GLint texSamp2D_01_UniLoc
+					= glGetUniformLocation(shaderId, "texSamp2D_01");
+				glUniform1i(texSamp2D_01_UniLoc, texture01Unit);
+			}
+		
 		}
 		
 
@@ -909,6 +940,8 @@ void drawMesh(Mesh mesh,int shaderId) {
 		glBindVertexArray(mod.VAOId);
 		glDrawElements(GL_TRIANGLES, mod.numberOfIndices, GL_UNSIGNED_INT, 0);
 		glUniform1f(bUseTexture_UniLoc, (float)GL_FALSE);
+		glUniform1f(isUseOneTexture_UniLoc, (float)GL_FALSE);
+		glUniform1f(isUseTwoTexture_UniLoc, (float)GL_FALSE);
 		if (mesh.colour.a < 1.0f) {
 			glDisable(GL_BLEND);
 

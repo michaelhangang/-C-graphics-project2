@@ -4,12 +4,13 @@
 #include<string>
 #include"Model.h"
 #include"Texture.h"
+#include<vector>
 using namespace std;
 
 class Mesh {
 public:	
 	string modelType;
-	string textureName;
+	vector<string> textureName;
 	string name;
 	glm::vec3 pos;			
 	glm::vec4 colour;		
@@ -17,5 +18,5 @@ public:
 	float scale;		
 	bool isWireframe;	
 	Mesh();
-	Mesh(string name,Model model,string textureName="");
+	Mesh(string name,Model model,string textureName1="", string textureName2 = "");
 };

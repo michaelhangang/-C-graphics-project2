@@ -7,7 +7,12 @@ out vec4 FragColor;
 
 
 uniform sampler2D texSamp2D_00;
+
+uniform sampler2D texSamp2D_01;
+
 uniform bool bUseTexture;
+uniform bool isUseOneTexture;
+uniform bool isUseTwoTexture;
 uniform vec3 viewPos;
 uniform vec4 ourColor;
 uniform vec3 sphereColor;
@@ -58,9 +63,12 @@ void main()
 	
 	if ( bUseTexture )
    {
-	//FragColor.rgb = texture( texSamp2D_00, fUVx2.xy ).rgb;
-	//color.a = ourColor.a;
-	color.xyz = texture( texSamp2D_00, fUVx2.xy ).rgb;
+	
+	if(isUseOneTexture)
+	color.xyz =texture( texSamp2D_00, fUVx2.xy ).rgb;
+	else if(isUseTwoTexture)
+		color.xyz =mix( texture( texSamp2D_00, fUVx2.xy ),texture( texSamp2D_01, fUVx2.xy ),0.1).rgb;
+
    }
 	//Point light
 	for(int index =0;index<NUMBEROFLIGHTS;index++){
