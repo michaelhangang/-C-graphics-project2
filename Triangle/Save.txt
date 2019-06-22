@@ -17,7 +17,7 @@ panel
  color 1, 1, 1, 1
 
 starboardpanel
- postion -51.3998, -6.4, 2.79998
+ postion -54.0998, -11.6, 2.79998
 
  orientation 0, 0,0 
 
@@ -79,12 +79,30 @@ Asteroid_005
 
  color 0.4, 1, 1, 1
 
+imposter3
+ postion -24, -50.4998, -6.50006
+
+ orientation 0.27, 0.81,-0.74 
+
+ scale 5.35003
+
+ color 1, 1, 1, 0.8
+
 imposter
- postion -46.1999, -0.4, 6.69997
+ postion -47.2999, -0.4, 6.69997
 
  orientation 0, 0,0 
 
- scale 8.50011
+ scale 4.92001
+
+ color 1, 1, 1, 0.8
+
+imposter2
+ postion -12.4, 41.7, -16.4001
+
+ orientation 0.45, 0.24,1.14 
+
+ scale 4.91003
 
  color 1, 1, 1, 0.8
 
@@ -133,7 +151,7 @@ SpotLight # 1
  direction -1 ,0 ,0 
 
 SpotLight # 2
- postion -52.9998 , -10.7 , 5.69998
+ postion -52.9998 , -15.5 , 5.69998
 
  atten 1, -0.745994, 0.151885 
 
@@ -144,7 +162,7 @@ SpotLight # 2
 SpotLight # 3
  postion -44.5999 , 9.7 , 7.59998
 
- atten 1, -0.854992, 0.185762 
+ atten 1, -0.805993, 0.185762 
 
  color 1,0.5,0 
 

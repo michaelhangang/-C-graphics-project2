@@ -107,7 +107,8 @@ void main()
 	 if ( bUseAlphaTexture )
 	{
 		// Pass the 4th value (alpha) as the transparency value
-		
+		if( texture(texSamp2D_Alpha, fUVx2.xy ).p>0.9)
+		FragColor.a=0;
 		FragColor.a = texture(texSamp2D_Alpha, fUVx2.xy ).r*color.a;
 		
 	}

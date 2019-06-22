@@ -140,6 +140,12 @@ int main(void)
 	Texture rock_Textures6("rock_Textures6","Dsc2.jpg");
 	textureManager.Create2DTexture(rock_Textures6, true);
 
+	Texture explosion_Textures2("explosion_Textures2", "0333755554c7dec00000158fc8b4b7c.jpg");
+	textureManager.Create2DTexture(explosion_Textures2, true);
+
+	Texture explosion_Textures3("explosion_Textures3", "019351211_prevstill.jpg");
+	textureManager.Create2DTexture(explosion_Textures3, true);
+
 #pragma endregion 
 #pragma region  load Model
 	
@@ -188,13 +194,31 @@ int main(void)
 
 	//create falcon1
 	Mesh imposter("imposter", imposter_Mod, "rock_Textures5");
-	imposter.pos = glm::vec3(-46.1999, -0.4, 6.69997);
+	imposter.pos = glm::vec3(-47.2999, -0.4, 6.69997);
 	imposter.isUseAlphaTexture = true;
 	imposter.alphaTextureName = "rock_Textures5";
-	imposter.scale = 8.50011;
+	imposter.scale = 4.92001;
 	imposter.colour = glm::vec4(1, 1, 1,0.8);
 	MeshToDraw.push_back(imposter);
+
+	Mesh imposter2("imposter2", imposter_Mod, "explosion_Textures2");
+	imposter2.pos = glm::vec3(-12.4, 41.7, -16.4001);
+	imposter2.isUseAlphaTexture = true;
+	imposter2.alphaTextureName = "explosion_Textures2";
+	imposter2.scale = 4.91003;
+	imposter2.orientation = vec3(0.45, 0.24, 1.14);
+	imposter2.colour = glm::vec4(1, 1, 1, 0.8);
+	MeshToDraw.push_back(imposter2);
 	
+	Mesh imposter3("imposter3", imposter_Mod, "explosion_Textures3");
+	imposter3.pos = glm::vec3(-24, -50.4998, -6.50006);
+	imposter3.isUseAlphaTexture = true;
+	imposter3.alphaTextureName = "explosion_Textures3";
+	imposter3.scale = 5.35003;
+	imposter3.orientation = vec3(0.27, 0.81, -0.74);
+	imposter3.colour = glm::vec4(1, 1, 1, 0.8);
+	MeshToDraw.push_back(imposter3);
+
 	Mesh body("body", Body_mod);
 	body.pos = glm::vec3 (-48.5999, -1.7, 4.79998);
 	body.scale = 1.08;
@@ -209,7 +233,7 @@ int main(void)
 	MeshToDraw.push_back(panel);
 
 	Mesh starboardpanel("starboardpanel", Starboard_Panel_mod);
-	starboardpanel.pos = glm::vec3(-51.3998, -6.4, 2.79998);
+	starboardpanel.pos = glm::vec3(-54.0998, -11.6, 2.79998);
 	starboardpanel.scale = 0.65;
 	//starboardpanel.orientation = glm::vec3(0.26, 0.02, 0.12);
 	MeshToDraw.push_back(starboardpanel);
@@ -326,7 +350,7 @@ int main(void)
 	lights.SpotLights.push_back(spotLight1);
 	
 	SpotLight spotLight2;
-	spotLight2.position = vec3(-52.9998, -10.7, 5.69998);
+	spotLight2.position = vec3(-52.9998, -15.5, 5.69998);
 	
 	spotLight2.atten = vec3 (1, -0.745994, 0.151885 );
 	spotLight2.diffuse = vec3(1,0.5,0);
@@ -390,8 +414,8 @@ int main(void)
 		glUniform3f(cameraPosLoc, cameraPos.x, cameraPos.y, cameraPos.z);
 #pragma endregion 	
 		////draw light sphere
-		drawLightSphere(lightSphere, shaderProgram);
-		drawSpotLightSphere(lightSphere, shaderProgram);
+		/*drawLightSphere(lightSphere, shaderProgram);
+		drawSpotLightSphere(lightSphere, shaderProgram);*/
 
         //draw mesh
 			for (vector<Mesh>::iterator iter = MeshToDraw.begin(); iter != MeshToDraw.end(); iter++) {
