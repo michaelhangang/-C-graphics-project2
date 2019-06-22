@@ -36,10 +36,11 @@ void sortMeshes();
 #pragma endregion 
 
 #pragma region global variable
-glm::vec3 cameraPos = glm::vec3(10, 3.1, 124.3);
-glm::vec3 cameraPos2 = glm::vec3(-15.8, 54.2003, 96.299);
+//glm::vec3 cameraPos = glm::vec3(10, 3.1, 124.3);   //question 1
+glm::vec3 cameraPos = glm::vec3(-37.4001, -49.1001, -115.5);  //question 2
 glm::vec3 cameraPos3 = glm::vec3(-9.8, -24.9998, 26.2994);
-glm::vec3 cameraTarget = glm::vec3(0, 1, 0);
+//glm::vec3 cameraTarget = glm::vec3(0, 1, 0);   //question 1
+glm::vec3 cameraTarget = glm::vec3(0, 1,-224);  //question 2
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 vector<Mesh> MeshToDraw;
@@ -146,6 +147,10 @@ int main(void)
 	Model falcon("falcon","Falcon_Body_and_engine_054230_verts.ply");
 	
 	VaoManager.loadModelToVAO(falcon);
+
+	Model falcon_mod2("falcon1", "Falcon_S2.ply");
+
+	VaoManager.loadModelToVAO(falcon_mod2);
 	
 	Model Asteroid_001("Asteroid_001", "Asteroid_001.ply");
 	VaoManager.loadModelToVAO(Asteroid_001);
@@ -177,14 +182,22 @@ int main(void)
 #pragma region mesh
 
 	//create falcon1
-	Mesh falcon1("falcon", falcon, "rock_Textures5");
+	Mesh falcon1("falcon1", falcon, "rock_Textures5");
 	falcon1.pos = glm::vec3(12.7, 20.6, -7.6);
 	falcon1.scale = 0.14f;
 	falcon1.orientation = glm::vec3(3.41, -2.04, 1.31);
-	//falcon1.colour = vec4(0.5, 0.5, 0.5,1.);
-	
 	MeshToDraw.push_back(falcon1);
 	
+	Mesh falcon2("falcon2", falcon_mod2, "rock_Textures5");
+	falcon2.pos = glm::vec3 (-32.8001, -64.0996, -227.5);
+	falcon2.scale = 0.1f;
+	falcon2.orientation = glm::vec3(0.26, 0.02, 0.12);
+	MeshToDraw.push_back(falcon2);
+	
+	Mesh Asteroid8("Asteroid_008", Asteroid_001, "rock_Textures2");
+	Asteroid8.pos = glm::vec3(13.1, 1, -191.998);
+	Asteroid8.scale = 65.1002;
+	MeshToDraw.push_back(Asteroid8);
 
 	Mesh Asteroid1("Asteroid_001", Asteroid_001, "rock_Textures1");
 	Asteroid1.pos = glm::vec3(-8.69997, 70.5995, 3.09999);
@@ -237,6 +250,7 @@ int main(void)
 	MeshToDraw.push_back(Asteroid7);
 
 	
+	
 #pragma endregion 
 
 #pragma region point light
@@ -262,10 +276,8 @@ int main(void)
 	lights.Lights.push_back(light3);
 	//
 	Light light4;
-	light4.position = vec3(-28.3, -17.5, 18.5);
-	light4.atten = vec3(1, 0.0320009, 4.22104e-12);
-	light4.diffuse = vec3(3.33, 0.5, 0.31);
-	light4.turnOff();
+	light4.position = vec3(-44.6999, -29.8001, -227.402);
+	light4.atten = vec3(1, 0.0020009, 2.24323e-12);
 	lights.Lights.push_back(light4);
 	//
 	Light light5;
@@ -280,7 +292,11 @@ int main(void)
 #pragma region spot light
 
 	//Spot
-	SpotLight spotLight1;
+		//
+	
+	
+
+	/*SpotLight spotLight1;
 	spotLight1.position = vec3(32.6001, -18.9001, 23.5);
 	
 	spotLight1.atten = vec3(1, -0.559997, 0.0977671);
@@ -300,6 +316,19 @@ int main(void)
 	spotLight3.atten = vec3(1, -0.622995, 0.0977671);
 	spotLight3.direction = vec3(-28.8, 0, 0);
 	lights.SpotLights.push_back(spotLight3);
+*/
+	SpotLight spotLight4;
+	spotLight4.position = vec3(-34.9001, -13.6, -215.101);
+	spotLight4.atten = vec3(1, -0.770993, 0.102771);
+	spotLight4.direction = vec3(-28.8, 0, 0);
+	lights.SpotLights.push_back(spotLight4);
+	//
+	SpotLight spotLight5;
+	spotLight5.position = vec3(-31.3001, -12.4, -218.701);
+	spotLight5.atten = vec3(1, -0.622995, 0.0977671);
+	spotLight5.direction = vec3(-28.8, 0, 0);
+	lights.SpotLights.push_back(spotLight5);
+
 	lights.GetSpotLightsUniformLocations(shaderProgram);
 #pragma endregion
 	sortMeshes();
@@ -338,8 +367,8 @@ int main(void)
 		glUniform3f(cameraPosLoc, cameraPos.x, cameraPos.y, cameraPos.z);
 #pragma endregion 	
 		////draw light sphere
-		//drawLightSphere(lightSphere, shaderProgram);
-		//drawSpotLightSphere(lightSphere, shaderProgram);
+		drawLightSphere(lightSphere, shaderProgram);
+		drawSpotLightSphere(lightSphere, shaderProgram);
 
         //draw mesh
 			for (vector<Mesh>::iterator iter = MeshToDraw.begin(); iter != MeshToDraw.end(); iter++) {
@@ -732,7 +761,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		view++;
 		switch (view)
 		{
-		case 1:cameraPos = cameraPos2; break;
+		//case 1:cameraPos = cameraPos2, cameraTarget=cameraTarget2; break;
 		case 2:cameraPos = cameraPos3; break;
 		default:
 			cameraPos = vec3(-13, -18.7998, 73.4994);

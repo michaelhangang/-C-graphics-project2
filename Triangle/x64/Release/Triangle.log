@@ -1,5 +1,11 @@
 ﻿  Project.cpp
-E:\GitHub\-C-graphics-project2\Triangle\Project.cpp(222,27): warning C4305:  '=': truncation from 'double' to 'float'
-E:\GitHub\-C-graphics-project2\Triangle\Project.cpp(229,26): warning C4305:  '=': truncation from 'double' to 'float'
-E:\GitHub\-C-graphics-project2\Triangle\Project.cpp(235,26): warning C4305:  '=': truncation from 'double' to 'float'
-LINK : fatal error LNK1104: cannot open file 'E:\GitHub\-C-graphics-project2\x64\Release\Project2.exe'
+E:\GitHub\-C-graphics-project2\Triangle\Project.cpp(199,27): warning C4305:  '=': truncation from 'double' to 'float'
+E:\GitHub\-C-graphics-project2\Triangle\Project.cpp(235,27): warning C4305:  '=': truncation from 'double' to 'float'
+E:\GitHub\-C-graphics-project2\Triangle\Project.cpp(242,26): warning C4305:  '=': truncation from 'double' to 'float'
+E:\GitHub\-C-graphics-project2\Triangle\Project.cpp(248,26): warning C4305:  '=': truncation from 'double' to 'float'
+  Generating code
+  1 of 1117 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    9 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Triangle.vcxproj -> E:\GitHub\-C-graphics-project2\x64\Release\Project2.exe

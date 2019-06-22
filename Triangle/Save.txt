@@ -1,9 +1,27 @@
-falcon
+falcon1
  postion 12.7, 20.6, -7.6
 
  orientation 3.41, -2.04,1.31 
 
  scale 0.14
+
+ color 1, 1, 1, 1
+
+falcon2
+ postion -32.8001, -64.0996, -227.5
+
+ orientation 0.26, 0.02,0.12 
+
+ scale 0.1
+
+ color 1, 1, 1, 1
+
+Asteroid_008
+ postion 13.1, 1, -191.998
+
+ orientation 0, 0,0 
+
+ scale 65.1002
 
  color 1, 1, 1, 1
 
@@ -92,11 +110,11 @@ Light # 3
  color 1,1,1 
 
 Light # 4
- postion -28.3, -17.5, 18.5
+ postion -44.6999, -29.8001, -227.402
 
- atten 1, 0.0320009,4.22104e-12 
+ atten 1, 0.0020009,2.24323e-12 
 
- color 3.33,0.5,0.31 
+ color 0.8,0.8,0.8 
 
 Light # 5
  postion -15.1999, 2, 25.1001
@@ -106,6 +124,24 @@ Light # 5
  color 1,1.82,1 
 
 SpotLight # 1
+ postion -34.9001 , -13.6 , -215.101
+
+ atten 1, -0.770993, 0.102771 
+
+ color 1,1,1 
+
+ direction -28.8 ,0 ,0 
+
+SpotLight # 2
+ postion -31.3001 , -12.4 , -218.701
+
+ atten 1, -0.622995, 0.0977671 
+
+ color 1,1,1 
+
+ direction -28.8 ,0 ,0 
+
+SpotLight # 3
  postion 32.6001 , -18.9001 , 23.5
 
  atten 1, -0.559997, 0.0977671 
@@ -114,7 +150,7 @@ SpotLight # 1
 
  direction -28.8 ,-2.4 ,-3.1 
 
-SpotLight # 2
+SpotLight # 4
  postion 35.9001 , -17.3001 , 20.9
 
  atten 1, -0.745994, 0.151885 
@@ -123,7 +159,7 @@ SpotLight # 2
 
  direction -28.8 ,0 ,0 
 
-SpotLight # 3
+SpotLight # 5
  postion 37.1 , -16.0001 , 18
 
  atten 1, -0.622995, 0.0977671 
@@ -132,4 +168,4 @@ SpotLight # 3
 
  direction -28.8 ,0 ,0 
 
-Camera 10,3.1,124.3
+Camera -37.8001,-49.1001,-118.1

@@ -45,7 +45,7 @@ struct SpotLight {
 const int NUMBEROFLIGHTS = 5;
 uniform Light theLights[NUMBEROFLIGHTS];
 
-const int NUMBEROFSPOTLIGHTS = 3;
+const int NUMBEROFSPOTLIGHTS = 5;
 uniform SpotLight theSpotLights[NUMBEROFSPOTLIGHTS];
 
 vec3 CalcPointLight(Light light, vec3 normal, vec3 fragPos, vec3 viewDir,vec4 color);
