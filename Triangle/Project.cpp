@@ -36,11 +36,11 @@ void sortMeshes();
 #pragma endregion 
 
 #pragma region global variable
-//glm::vec3 cameraPos = glm::vec3(10, 3.1, 124.3);   //question 1
-glm::vec3 cameraPos = glm::vec3(-37.4001, -49.1001, -115.5);  //question 2
+glm::vec3 cameraPos = glm::vec3(10, 3.1, 124.3);   //question 1
+//glm::vec3 cameraPos = glm::vec3(-37.4001, -49.1001, -115.5);  //question 2
 glm::vec3 cameraPos3 = glm::vec3(-9.8, -24.9998, 26.2994);
-//glm::vec3 cameraTarget = glm::vec3(0, 1, 0);   //question 1
-glm::vec3 cameraTarget = glm::vec3(0, 1,-224);  //question 2
+glm::vec3 cameraTarget = glm::vec3(0, 1, 0);   //question 1
+//glm::vec3 cameraTarget = glm::vec3(0, 1,-224);  //question 2
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 vector<Mesh> MeshToDraw;
@@ -135,7 +135,7 @@ int main(void)
 	textureManager.Create2DTexture(rock_Textures3, true);
 	Texture rock_Textures4("rock_Textures4","earth_moon_texture_pack_by_zephroth.jpg");
 	textureManager.Create2DTexture(rock_Textures4, true);
-	Texture rock_Textures5("rock_Textures5","gray.bmp");
+	Texture rock_Textures5("rock_Textures5","Explosion.bmp");
 	textureManager.Create2DTexture(rock_Textures5, true);
 	Texture rock_Textures6("rock_Textures6","Dsc2.jpg");
 	textureManager.Create2DTexture(rock_Textures6, true);
@@ -144,13 +144,18 @@ int main(void)
 #pragma region  load Model
 	
 
-	Model falcon("falcon","Falcon_Body_and_engine_054230_verts.ply");
+	Model imposter_Mod("imposter","Flat_Quad_xyz_n_uv.ply");
+	imposter_Mod.GenerateSphericalUVs = false;
+	VaoManager.loadModelToVAO(imposter_Mod);
+
+	Model Starboard_Panel_mod("Starboard_Panel", "Starboard_Panel_only_03492.ply");
+	VaoManager.loadModelToVAO(Starboard_Panel_mod);
 	
-	VaoManager.loadModelToVAO(falcon);
+	Model Port_Panel_mod("Port_Panel", "Port_Panel_only_03479.ply");
+	VaoManager.loadModelToVAO(Port_Panel_mod);
 
-	Model falcon_mod2("falcon1", "Falcon_S2.ply");
-
-	VaoManager.loadModelToVAO(falcon_mod2);
+	Model Body_mod("Body", "Body_Only_07328_vertx.ply");
+	VaoManager.loadModelToVAO(Body_mod);
 	
 	Model Asteroid_001("Asteroid_001", "Asteroid_001.ply");
 	VaoManager.loadModelToVAO(Asteroid_001);
@@ -182,48 +187,65 @@ int main(void)
 #pragma region mesh
 
 	//create falcon1
-	Mesh falcon1("falcon1", falcon, "rock_Textures5");
-	falcon1.pos = glm::vec3(12.7, 20.6, -7.6);
-	falcon1.scale = 0.14f;
-	falcon1.orientation = glm::vec3(3.41, -2.04, 1.31);
-	MeshToDraw.push_back(falcon1);
+	Mesh imposter("imposter", imposter_Mod, "rock_Textures5");
+	imposter.pos = glm::vec3(-46.1999, -0.4, 6.69997);
+	imposter.isUseAlphaTexture = true;
+	imposter.alphaTextureName = "rock_Textures5";
+	imposter.scale = 8.50011;
+	imposter.colour = glm::vec4(1, 1, 1,0.8);
+	MeshToDraw.push_back(imposter);
 	
-	Mesh falcon2("falcon2", falcon_mod2, "rock_Textures5");
-	falcon2.pos = glm::vec3 (-32.8001, -64.0996, -227.5);
-	falcon2.scale = 0.1f;
-	falcon2.orientation = glm::vec3(0.26, 0.02, 0.12);
-	MeshToDraw.push_back(falcon2);
+	Mesh body("body", Body_mod);
+	body.pos = glm::vec3 (-48.5999, -1.7, 4.79998);
+	body.scale = 1.08;
+	//body.orientation = glm::vec3(0.26, 0.02, 0.12);
+	MeshToDraw.push_back(body);
 	
+
+	Mesh panel("panel", Port_Panel_mod);
+	panel.pos = glm::vec3(-46.4999, 7.4, 3.19998);
+	panel.scale = 0.370001;
+	//panel.orientation = glm::vec3(0.26, 0.02, 0.12);
+	MeshToDraw.push_back(panel);
+
+	Mesh starboardpanel("starboardpanel", Starboard_Panel_mod);
+	starboardpanel.pos = glm::vec3(-51.3998, -6.4, 2.79998);
+	starboardpanel.scale = 0.65;
+	//starboardpanel.orientation = glm::vec3(0.26, 0.02, 0.12);
+	MeshToDraw.push_back(starboardpanel);
+
+
 	Mesh Asteroid8("Asteroid_008", Asteroid_001, "rock_Textures2");
-	Asteroid8.pos = glm::vec3(13.1, 1, -191.998);
-	Asteroid8.scale = 65.1002;
+	Asteroid8.pos = glm::vec3(162.601, 13.1, -189.498);
+	Asteroid8.orientation = vec3(0.02, 0.08, -7.45058e-08);
+	Asteroid8.scale = 40.1002;
 	MeshToDraw.push_back(Asteroid8);
 
 	Mesh Asteroid1("Asteroid_001", Asteroid_001, "rock_Textures1");
-	Asteroid1.pos = glm::vec3(-8.69997, 70.5995, 3.09999);
-	Asteroid1.scale = 35.33f;
+	Asteroid1.pos = glm::vec3(0.500027, -6.09999, 9.79999);
+	Asteroid1.scale = 45.33f;
 	Asteroid1.orientation = glm::vec3(0.6, -0.2, 1.17);
 	Asteroid1.colour = vec4(1.0f, 1.f, 1.f, 1.f);
 	MeshToDraw.push_back(Asteroid1);
 
 
 	Mesh Asteroid2("Asteroid_002", Asteroid_002, "rock_Textures2");
-	Asteroid2.pos = glm::vec3(75.6995, -30.0001, 10.9);
+	Asteroid2.pos = glm::vec3(16.1001, 6.7, 81.2993);
 	Asteroid2.scale = 20.11f;
 	Asteroid2.colour = vec4(1.0f, 1.f, 1.f, 1.f);
 	//Asteroid2.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid2);
 
 	Mesh Asteroid3("Asteroid_003", Asteroid_003,"rock_Textures3" );
-	Asteroid3.pos = glm::vec3(-27.5001, 19.8, -7.4);
-	Asteroid3.scale = 20.83f;	
+	Asteroid3.pos = glm::vec3(-43.9999, -5.50004, -7.4);
+	Asteroid3.scale = 58.83f;	
 	Asteroid3.colour = vec4(1.0f, 1.f, 1.f, 1.f);
 
 	//Asteroid3.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid3);
 
 	Mesh Asteroid4("Asteroid_004", Asteroid_004, "rock_Textures4");
-	Asteroid4.pos = glm::vec3(62.3996, 26.9001, -17.8);
+	Asteroid4.pos = glm::vec3(-80.9994, 26.9001, -17.8);
 	Asteroid4.scale = 20.25;
 	Asteroid4.colour = vec4(1.0f, 0.5f, 1.f, 1.f);
 
@@ -231,23 +253,23 @@ int main(void)
 	MeshToDraw.push_back(Asteroid4);
 	
 	Mesh Asteroid5("Asteroid_005", Asteroid_005, "rock_Textures");
-	Asteroid5.pos = glm::vec3(12.1, 48.2998, -28.6001);
+	Asteroid5.pos = glm::vec3(-119.499, -52.7998, -28.6001);
 	Asteroid5.scale = 13.1002;
 	Asteroid5.colour = vec4(0.4f, 1.f, 1.f, 1.f);
 	//Asteroid5.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid5);
 	
-	Mesh Asteroid6("Asteroid_006", Asteroid_006, "rock_Textures6");
-	Asteroid6.pos = glm::vec3(64.4996, 8.79995, -28.6001);
-	Asteroid6.scale = 3.1002;
-	Asteroid6.colour = vec4(0.4f, 1.f, 1.f, 1.f);	
-	MeshToDraw.push_back(Asteroid6);
-	
-	Mesh Asteroid7("Asteroid_007", Asteroid_007, "rock_Textures4");
-	Asteroid7.pos = glm::vec3(-52.2998, -19.2002, -28.6001);
-	Asteroid7.scale = 3.1002;
-	//Asteroid7.colour = vec4(0.4f, 1.f, 1.f, 1.f);	
-	MeshToDraw.push_back(Asteroid7);
+	//Mesh Asteroid6("Asteroid_006", Asteroid_006, "rock_Textures6");
+	//Asteroid6.pos = glm::vec3(64.4996, 8.79995, -28.6001);
+	//Asteroid6.scale = 3.1002;
+	//Asteroid6.colour = vec4(0.4f, 1.f, 1.f, 1.f);	
+	//MeshToDraw.push_back(Asteroid6);
+	//
+	//Mesh Asteroid7("Asteroid_007", Asteroid_007, "rock_Textures4");
+	//Asteroid7.pos = glm::vec3(-52.2998, -19.2002, -28.6001);
+	//Asteroid7.scale = 3.1002;
+	////Asteroid7.colour = vec4(0.4f, 1.f, 1.f, 1.f);	
+	//MeshToDraw.push_back(Asteroid7);
 
 	
 	
@@ -264,8 +286,8 @@ int main(void)
 
 	//light2
 	Light light2;
-	light2.position = vec3(-22.1, -6.50009, 71.0995);
-	light2.atten = vec3(1, 0.0619997, 8.53323e-31);
+	light2.position = vec3(6.40004, 2.19991, 115.499);
+	light2.atten = vec3(1, 0.0459997, 4.53491e-31);
 	light2.diffuse = vec3(1, 1, 1);
 	lights.Lights.push_back(light2);
 	//
@@ -296,27 +318,28 @@ int main(void)
 	
 	
 
-	/*SpotLight spotLight1;
-	spotLight1.position = vec3(32.6001, -18.9001, 23.5);
+	SpotLight spotLight1;
+	spotLight1.position = vec3(-48.5999, -1.7, 13.7);
 	
-	spotLight1.atten = vec3(1, -0.559997, 0.0977671);
-	spotLight1.direction = vec3(-28.8, -2.4, -3.1);
+	spotLight1.atten = vec3(1, -0.455998, 0.0634822);
+	spotLight1.direction = vec3(-1, 0, 0);
 	lights.SpotLights.push_back(spotLight1);
 	
 	SpotLight spotLight2;
-	spotLight2.position = vec3(35.9001, -17.3001, 20.9);
+	spotLight2.position = vec3(-52.9998, -10.7, 5.69998);
 	
 	spotLight2.atten = vec3 (1, -0.745994, 0.151885 );
-	spotLight2.direction = vec3(-28.8, 0, 0);
+	spotLight2.diffuse = vec3(1,0.5,0);
+	spotLight2.direction = vec3(-1, -1, 0);
 	lights.SpotLights.push_back(spotLight2);
 	
 	SpotLight spotLight3;
-	spotLight3.position = vec3(37.1, -16.0001, 18);
-	
-	spotLight3.atten = vec3(1, -0.622995, 0.0977671);
-	spotLight3.direction = vec3(-28.8, 0, 0);
+	spotLight3.position = vec3(-44.5999, 9.7, 7.59998);
+	spotLight3.diffuse = vec3(1, 0.5, 0);
+	spotLight3.atten = vec3(1, -0.805993, 0.185762);
+	spotLight3.direction = vec3(-1, 0, 0);
 	lights.SpotLights.push_back(spotLight3);
-*/
+
 	SpotLight spotLight4;
 	spotLight4.position = vec3(-34.9001, -13.6, -215.101);
 	spotLight4.atten = vec3(1, -0.770993, 0.102771);
@@ -850,7 +873,7 @@ void sortMeshes() {
 	map<float, Mesh> sorted;
 	for (vector<Mesh>::iterator iter = MeshToDraw.begin(); iter != MeshToDraw.end(); iter++) {
 		Mesh mesh = *iter;
-		if (mesh.colour.a < 1.0f) {
+		if (mesh.colour.a < 1.0f||mesh.isUseAlphaTexture) {
 			transparentMesh.push_back(mesh);
 
 		}

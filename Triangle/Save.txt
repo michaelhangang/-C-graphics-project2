@@ -1,41 +1,50 @@
-falcon1
- postion 12.7, 20.6, -7.6
+body
+ postion -48.5999, -1.7, 4.79998
 
- orientation 3.41, -2.04,1.31 
+ orientation 0, 0,0 
 
- scale 0.14
+ scale 1.08
 
  color 1, 1, 1, 1
 
-falcon2
- postion -32.8001, -64.0996, -227.5
+panel
+ postion -46.4999, 7.4, 3.19998
 
- orientation 0.26, 0.02,0.12 
+ orientation 0, 0,0 
 
- scale 0.1
+ scale 0.370001
+
+ color 1, 1, 1, 1
+
+starboardpanel
+ postion -51.3998, -6.4, 2.79998
+
+ orientation 0, 0,0 
+
+ scale 0.65
 
  color 1, 1, 1, 1
 
 Asteroid_008
- postion 13.1, 1, -191.998
+ postion 162.601, 13.1, -189.498
 
- orientation 0, 0,0 
+ orientation 0.02, 0.08,-7.45058e-08 
 
- scale 65.1002
+ scale 40.1002
 
  color 1, 1, 1, 1
 
 Asteroid_001
- postion -8.69997, 70.5995, 3.09999
+ postion 0.500027, -6.09999, 9.79999
 
  orientation 0.6, -0.2,1.17 
 
- scale 35.33
+ scale 45.33
 
  color 1, 1, 1, 1
 
 Asteroid_002
- postion 75.6995, -30.0001, 10.9
+ postion 16.1001, 6.7, 81.2993
 
  orientation 0, 0,0 
 
@@ -44,16 +53,16 @@ Asteroid_002
  color 1, 1, 1, 1
 
 Asteroid_003
- postion -27.5001, 19.8, -7.4
+ postion -43.9999, -5.50004, -7.4
 
  orientation 0, 0,0 
 
- scale 20.83
+ scale 58.83
 
  color 1, 1, 1, 1
 
 Asteroid_004
- postion 62.3996, 26.9001, -17.8
+ postion -80.9994, 26.9001, -17.8
 
  orientation 0, 0,0 
 
@@ -62,7 +71,7 @@ Asteroid_004
  color 1, 0.5, 1, 1
 
 Asteroid_005
- postion 12.1, 48.2998, -28.6001
+ postion -119.499, -52.7998, -28.6001
 
  orientation 0, 0,0 
 
@@ -70,23 +79,14 @@ Asteroid_005
 
  color 0.4, 1, 1, 1
 
-Asteroid_006
- postion 64.4996, 8.79995, -28.6001
+imposter
+ postion -46.1999, -0.4, 6.69997
 
  orientation 0, 0,0 
 
- scale 3.1002
+ scale 8.50011
 
- color 0.4, 1, 1, 1
-
-Asteroid_007
- postion -52.2998, -19.2002, -28.6001
-
- orientation 0, 0,0 
-
- scale 3.1002
-
- color 1, 1, 1, 1
+ color 1, 1, 1, 0.8
 
 Light # 1
  postion 19.5001, 35.8, 24.8
@@ -96,9 +96,9 @@ Light # 1
  color 1,1,1 
 
 Light # 2
- postion -22.1, -6.50009, 71.0995
+ postion 6.40004, 2.19991, 115.499
 
- atten 1, 0.0619997,8.53323e-31 
+ atten 1, 0.0459997,4.53491e-31 
 
  color 1,1,1 
 
@@ -124,6 +124,33 @@ Light # 5
  color 1,1.82,1 
 
 SpotLight # 1
+ postion -48.5999 , -1.7 , 13.7
+
+ atten 1, -0.455998, 0.0634822 
+
+ color 1,1,1 
+
+ direction -1 ,0 ,0 
+
+SpotLight # 2
+ postion -52.9998 , -10.7 , 5.69998
+
+ atten 1, -0.745994, 0.151885 
+
+ color 1,0.5,0 
+
+ direction -1 ,-1 ,0 
+
+SpotLight # 3
+ postion -44.5999 , 9.7 , 7.59998
+
+ atten 1, -0.854992, 0.185762 
+
+ color 1,0.5,0 
+
+ direction -1 ,0 ,0 
+
+SpotLight # 4
  postion -34.9001 , -13.6 , -215.101
 
  atten 1, -0.770993, 0.102771 
@@ -132,7 +159,7 @@ SpotLight # 1
 
  direction -28.8 ,0 ,0 
 
-SpotLight # 2
+SpotLight # 5
  postion -31.3001 , -12.4 , -218.701
 
  atten 1, -0.622995, 0.0977671 
@@ -141,31 +168,4 @@ SpotLight # 2
 
  direction -28.8 ,0 ,0 
 
-SpotLight # 3
- postion 32.6001 , -18.9001 , 23.5
-
- atten 1, -0.559997, 0.0977671 
-
- color 1,1,1 
-
- direction -28.8 ,-2.4 ,-3.1 
-
-SpotLight # 4
- postion 35.9001 , -17.3001 , 20.9
-
- atten 1, -0.745994, 0.151885 
-
- color 1,1,1 
-
- direction -28.8 ,0 ,0 
-
-SpotLight # 5
- postion 37.1 , -16.0001 , 18
-
- atten 1, -0.622995, 0.0977671 
-
- color 1,1,1 
-
- direction -28.8 ,0 ,0 
-
-Camera -37.8001,-49.1001,-118.1
+Camera 10,3.1,124.3

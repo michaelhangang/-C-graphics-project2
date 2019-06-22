@@ -108,7 +108,8 @@ void main()
 	{
 		// Pass the 4th value (alpha) as the transparency value
 		
-		FragColor.a = texture(texSamp2D_Alpha, fUVx2.xy ).r;
+		FragColor.a = texture(texSamp2D_Alpha, fUVx2.xy ).r*color.a;
+		
 	}
 	
 	
