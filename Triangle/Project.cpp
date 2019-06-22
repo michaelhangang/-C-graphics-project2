@@ -36,7 +36,7 @@ void sortMeshes();
 #pragma endregion 
 
 #pragma region global variable
-glm::vec3 cameraPos = glm::vec3(17, 3.1, 117.7);
+glm::vec3 cameraPos = glm::vec3(10, 3.1, 124.3);
 glm::vec3 cameraPos2 = glm::vec3(-15.8, 54.2003, 96.299);
 glm::vec3 cameraPos3 = glm::vec3(-9.8, -24.9998, 26.2994);
 glm::vec3 cameraTarget = glm::vec3(0, 1, 0);
@@ -112,8 +112,6 @@ int main(void)
 #pragma endregion
 	
 	
-
-
 #pragma region light mesh
 
 	Model sphere("sphere", "Sphere.ply");
@@ -130,18 +128,23 @@ int main(void)
 	textureManager.Create2DTexture(rock_Textures,true);
 	Texture rock_Textures1("rock_Textures1", "depositphotos_15659203-Seamless-texture-surface-of-the.jpg");
 	textureManager.Create2DTexture(rock_Textures1, true);
-	Texture rock_Textures2("rock_Textures2", "GoRaptorsAlphaTransparency.bmp");
+	Texture rock_Textures2("rock_Textures2", "Aerographe albedo.jpg");
 	textureManager.Create2DTexture(rock_Textures2, true);
-	Texture SpidermanUV_square("SpidermanUV_square", "SpidermanUV_square.bmp");
-	textureManager.Create2DTexture(SpidermanUV_square, true);
-	/*Texture Alpha_texture();
-	textureManager.Create2DTexture(SpidermanUV_square, true);*/
+	Texture rock_Textures3("rock_Textures3", "Dsc.jpg");
+	textureManager.Create2DTexture(rock_Textures3, true);
+	Texture rock_Textures4("rock_Textures4","earth_moon_texture_pack_by_zephroth.jpg");
+	textureManager.Create2DTexture(rock_Textures4, true);
+	Texture rock_Textures5("rock_Textures5","gray.bmp");
+	textureManager.Create2DTexture(rock_Textures5, true);
+	Texture rock_Textures6("rock_Textures6","Dsc2.jpg");
+	textureManager.Create2DTexture(rock_Textures6, true);
 
 #pragma endregion 
 #pragma region  load Model
 	
 
-	Model falcon("falcon","Falcon_Body_054217_verts.ply");
+	Model falcon("falcon","Falcon_Body_and_engine_054230_verts.ply");
+	
 	VaoManager.loadModelToVAO(falcon);
 	
 	Model Asteroid_001("Asteroid_001", "Asteroid_001.ply");
@@ -160,9 +163,13 @@ int main(void)
 	Model Asteroid_005("Asteroid_005", "Asteroid_005.ply");
 	VaoManager.loadModelToVAO(Asteroid_005);
 
-	Model legospiderman_body("legospiderman_body", "legospiderman_All.ply");
-	legospiderman_body.GenerateSphericalUVs = false;
-	VaoManager.loadModelToVAO(legospiderman_body);
+	Model Asteroid_006("Asteroid_006", "Asteroid_006.ply");
+	VaoManager.loadModelToVAO(Asteroid_006);
+	
+	Model Asteroid_007("Asteroid_007", "Asteroid_007.ply");
+	VaoManager.loadModelToVAO(Asteroid_007);
+
+	
 
 
 #pragma endregion 
@@ -170,41 +177,40 @@ int main(void)
 #pragma region mesh
 
 	//create falcon1
-	Mesh falcon1("falcon", falcon);
+	Mesh falcon1("falcon", falcon, "rock_Textures5");
 	falcon1.pos = glm::vec3(12.7, 20.6, -7.6);
-	falcon1.scale = 0.1f;
-	falcon1.orientation = glm::vec3(3.07, -2.14, 1.68);
-	falcon1.colour = vec4(1.0f, 1.f, 1.f,1.f);
-	falcon1.isUseAlphaTexture = true;
-	falcon1.alphaTextureName = "rock_Textures2";
+	falcon1.scale = 0.14f;
+	falcon1.orientation = glm::vec3(3.41, -2.04, 1.31);
+	//falcon1.colour = vec4(0.5, 0.5, 0.5,1.);
+	
 	MeshToDraw.push_back(falcon1);
 	
 
 	Mesh Asteroid1("Asteroid_001", Asteroid_001, "rock_Textures1");
 	Asteroid1.pos = glm::vec3(-8.69997, 70.5995, 3.09999);
-	Asteroid1.scale = 20.33f;
+	Asteroid1.scale = 35.33f;
 	Asteroid1.orientation = glm::vec3(0.6, -0.2, 1.17);
 	Asteroid1.colour = vec4(1.0f, 1.f, 1.f, 1.f);
 	MeshToDraw.push_back(Asteroid1);
 
 
-	Mesh Asteroid2("Asteroid_002", Asteroid_002, "rock_Textures1");
-	Asteroid2.pos = glm::vec3(9.49999, -8.90004, 10.9);
+	Mesh Asteroid2("Asteroid_002", Asteroid_002, "rock_Textures2");
+	Asteroid2.pos = glm::vec3(75.6995, -30.0001, 10.9);
 	Asteroid2.scale = 20.11f;
 	Asteroid2.colour = vec4(1.0f, 1.f, 1.f, 1.f);
 	//Asteroid2.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid2);
 
-	Mesh Asteroid3("Asteroid_003", Asteroid_003,"rock_Textures1" );
-	Asteroid3.pos = glm::vec3(12.9, 41.1999, -7.4);
+	Mesh Asteroid3("Asteroid_003", Asteroid_003,"rock_Textures3" );
+	Asteroid3.pos = glm::vec3(-27.5001, 19.8, -7.4);
 	Asteroid3.scale = 20.83f;	
 	Asteroid3.colour = vec4(1.0f, 1.f, 1.f, 1.f);
 
 	//Asteroid3.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid3);
 
-	Mesh Asteroid4("Asteroid_004", Asteroid_004, "rock_Textures");
-	Asteroid4.pos = glm::vec3(12.9, 43.4999, -17.8);
+	Mesh Asteroid4("Asteroid_004", Asteroid_004, "rock_Textures4");
+	Asteroid4.pos = glm::vec3(62.3996, 26.9001, -17.8);
 	Asteroid4.scale = 20.25;
 	Asteroid4.colour = vec4(1.0f, 0.5f, 1.f, 1.f);
 
@@ -217,12 +223,20 @@ int main(void)
 	Asteroid5.colour = vec4(0.4f, 1.f, 1.f, 1.f);
 	//Asteroid5.orientation = glm::vec3(-3.07, -3.05, 1.68);
 	MeshToDraw.push_back(Asteroid5);
+	
+	Mesh Asteroid6("Asteroid_006", Asteroid_006, "rock_Textures6");
+	Asteroid6.pos = glm::vec3(64.4996, 8.79995, -28.6001);
+	Asteroid6.scale = 3.1002;
+	Asteroid6.colour = vec4(0.4f, 1.f, 1.f, 1.f);	
+	MeshToDraw.push_back(Asteroid6);
+	
+	Mesh Asteroid7("Asteroid_007", Asteroid_007, "rock_Textures4");
+	Asteroid7.pos = glm::vec3(-52.2998, -19.2002, -28.6001);
+	Asteroid7.scale = 3.1002;
+	//Asteroid7.colour = vec4(0.4f, 1.f, 1.f, 1.f);	
+	MeshToDraw.push_back(Asteroid7);
 
-	Mesh spiderMan("spiderMan", legospiderman_body,"SpidermanUV_square", "rock_Textures2");
-	spiderMan.pos = vec3(9.49999, -8.90004, 10.9);
-	spiderMan.scale = 3.52;
-	spiderMan.orientation = glm::vec3(-1.39, -1.38, 0);
-	MeshToDraw.push_back(spiderMan);
+	
 #pragma endregion 
 
 #pragma region point light
@@ -236,8 +250,8 @@ int main(void)
 
 	//light2
 	Light light2;
-	light2.position = vec3(-8.29996, -6.50009, 7.90001);
-	light2.atten = vec3(1, 0.119, 2.10543e-29);
+	light2.position = vec3(-22.1, -6.50009, 71.0995);
+	light2.atten = vec3(1, 0.0619997, 8.53323e-31);
 	light2.diffuse = vec3(1, 1, 1);
 	lights.Lights.push_back(light2);
 	//
@@ -267,11 +281,25 @@ int main(void)
 
 	//Spot
 	SpotLight spotLight1;
-	spotLight1.position = vec3(-15.1999, 2, 25.1001);
-	spotLight1.turnOff();
-	spotLight1.atten = vec3(1, 0.015, 0.00501816);
+	spotLight1.position = vec3(32.6001, -18.9001, 23.5);
+	
+	spotLight1.atten = vec3(1, -0.559997, 0.0977671);
 	spotLight1.direction = vec3(-28.8, -2.4, -3.1);
 	lights.SpotLights.push_back(spotLight1);
+	
+	SpotLight spotLight2;
+	spotLight2.position = vec3(35.9001, -17.3001, 20.9);
+	
+	spotLight2.atten = vec3 (1, -0.745994, 0.151885 );
+	spotLight2.direction = vec3(-28.8, 0, 0);
+	lights.SpotLights.push_back(spotLight2);
+	
+	SpotLight spotLight3;
+	spotLight3.position = vec3(37.1, -16.0001, 18);
+	
+	spotLight3.atten = vec3(1, -0.622995, 0.0977671);
+	spotLight3.direction = vec3(-28.8, 0, 0);
+	lights.SpotLights.push_back(spotLight3);
 	lights.GetSpotLightsUniformLocations(shaderProgram);
 #pragma endregion
 	sortMeshes();
@@ -309,9 +337,9 @@ int main(void)
 		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniform3f(cameraPosLoc, cameraPos.x, cameraPos.y, cameraPos.z);
 #pragma endregion 	
-		//draw light sphere
-		drawLightSphere(lightSphere, shaderProgram);
-		drawSpotLightSphere(lightSphere, shaderProgram);
+		////draw light sphere
+		//drawLightSphere(lightSphere, shaderProgram);
+		//drawSpotLightSphere(lightSphere, shaderProgram);
 
         //draw mesh
 			for (vector<Mesh>::iterator iter = MeshToDraw.begin(); iter != MeshToDraw.end(); iter++) {
@@ -765,17 +793,17 @@ void SaveEverything(void)
 	{
 		saveFile
 			<< "SpotLight # " << index + 1 << "\n postion "
-			<< lights.SpotLights[index].position.x << "  "
-			<< lights.SpotLights[index].position.y << "  "
+			<< lights.SpotLights[index].position.x << " , "
+			<< lights.SpotLights[index].position.y << " , "
 			<< lights.SpotLights[index].position.z << "\n\n atten "
-			<< lights.SpotLights[index].atten.x << " "
-			<< lights.SpotLights[index].atten.y << " "
+			<< lights.SpotLights[index].atten.x << ", "
+			<< lights.SpotLights[index].atten.y << ", "
 			<< lights.SpotLights[index].atten.z << " \n\n color "
 			<< lights.SpotLights[index].diffuse.x << ","
 			<< lights.SpotLights[index].diffuse.y << ","
 			<< lights.SpotLights[index].diffuse.z << " \n\n direction "
-			<< lights.SpotLights[index].direction.x << " "
-			<< lights.SpotLights[index].direction.y << " "
+			<< lights.SpotLights[index].direction.x << " ,"
+			<< lights.SpotLights[index].direction.y << " ,"
 			<< lights.SpotLights[index].direction.z << " \n\n";
 
 	}
