@@ -1,14 +1,14 @@
 body
- postion -48.5999, -1.7, 4.79998
+ postion -47.4999, -1.7, 7.29998
 
  orientation 0, 0,0 
 
- scale 1.08
+ scale 1.18
 
- color 1, 1, 1, 1
+ color 0.5, 0.5, 0.5, 1
 
 panel
- postion -46.4999, 7.4, 3.19998
+ postion -45.8999, 8.6, 3.19998
 
  orientation 0, 0,0 
 
@@ -79,8 +79,17 @@ Asteroid_005
 
  color 0.4, 1, 1, 1
 
+imposter2
+ postion -11.1, 41.7, -16.4001
+
+ orientation 0.45, 0.24,1.14 
+
+ scale 4.91003
+
+ color 1, 1, 1, 0.8
+
 imposter3
- postion -24, -50.4998, -6.50006
+ postion -25.2, -50.4998, -6.50006
 
  orientation 0.27, 0.81,-0.74 
 
@@ -89,22 +98,22 @@ imposter3
  color 1, 1, 1, 0.8
 
 imposter
- postion -47.2999, -0.4, 6.69997
+ postion -46.9999, -1.3, 8.59997
 
  orientation 0, 0,0 
 
- scale 4.92001
+ scale 5.19002
 
  color 1, 1, 1, 0.8
 
-imposter2
- postion -12.4, 41.7, -16.4001
+dust
+ postion -45.8998, -0.9, 10.1
 
- orientation 0.45, 0.24,1.14 
+ orientation 0, 0,0 
 
- scale 4.91003
+ scale 7.41008
 
- color 1, 1, 1, 0.8
+ color 1, 1, 1, 1
 
 Light # 1
  postion 19.5001, 35.8, 24.8
@@ -116,7 +125,7 @@ Light # 1
 Light # 2
  postion 6.40004, 2.19991, 115.499
 
- atten 1, 0.0459997,4.53491e-31 
+ atten 1, 0.0139997,6.90513e-21 
 
  color 1,1,1 
 
@@ -142,11 +151,11 @@ Light # 5
  color 1,1.82,1 
 
 SpotLight # 1
- postion -48.5999 , -1.7 , 13.7
+ postion -49.6999 , -1.1 , 10.4
 
- atten 1, -0.455998, 0.0634822 
+ atten 1, -0.416999, 0.0503973 
 
- color 1,1,1 
+ color 1,0.5,0 
 
  direction -1 ,0 ,0 
 

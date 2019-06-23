@@ -146,6 +146,10 @@ int main(void)
 	Texture explosion_Textures3("explosion_Textures3", "019351211_prevstill.jpg");
 	textureManager.Create2DTexture(explosion_Textures3, true);
 
+	Texture dust_mod("dust_mod", "0522EXP_04_02.jpg");
+	textureManager.Create2DTexture(dust_mod, true);
+
+
 #pragma endregion 
 #pragma region  load Model
 	
@@ -194,15 +198,15 @@ int main(void)
 
 	//create falcon1
 	Mesh imposter("imposter", imposter_Mod, "rock_Textures5");
-	imposter.pos = glm::vec3(-47.2999, -0.4, 6.69997);
+	imposter.pos = glm::vec3(-46.9999, -1.3, 8.59997);
 	imposter.isUseAlphaTexture = true;
 	imposter.alphaTextureName = "rock_Textures5";
-	imposter.scale = 4.92001;
+	imposter.scale = 5.19002;
 	imposter.colour = glm::vec4(1, 1, 1,0.8);
 	MeshToDraw.push_back(imposter);
 
 	Mesh imposter2("imposter2", imposter_Mod, "explosion_Textures2");
-	imposter2.pos = glm::vec3(-12.4, 41.7, -16.4001);
+	imposter2.pos = glm::vec3(-11.1, 41.7, -16.4001);
 	imposter2.isUseAlphaTexture = true;
 	imposter2.alphaTextureName = "explosion_Textures2";
 	imposter2.scale = 4.91003;
@@ -211,7 +215,7 @@ int main(void)
 	MeshToDraw.push_back(imposter2);
 	
 	Mesh imposter3("imposter3", imposter_Mod, "explosion_Textures3");
-	imposter3.pos = glm::vec3(-24, -50.4998, -6.50006);
+	imposter3.pos = glm::vec3(-25.2, -50.4998, -6.50006);
 	imposter3.isUseAlphaTexture = true;
 	imposter3.alphaTextureName = "explosion_Textures3";
 	imposter3.scale = 5.35003;
@@ -219,15 +223,25 @@ int main(void)
 	imposter3.colour = glm::vec4(1, 1, 1, 0.8);
 	MeshToDraw.push_back(imposter3);
 
+	Mesh dust("dust", imposter_Mod);
+	dust.pos = glm::vec3(-45.8998, -0.9, 10.1);
+	dust.isUseAlphaTexture = true;
+	dust.alphaTextureName = "dust_mod";
+	dust.scale = 7.41008;
+	//dust.orientation = vec3(0.27, 0.81, -0.74);
+	//dust.colour = glm::vec4(1, 1, 1, 0.8);
+	MeshToDraw.push_back(dust);
+
 	Mesh body("body", Body_mod);
-	body.pos = glm::vec3 (-48.5999, -1.7, 4.79998);
-	body.scale = 1.08;
+	body.pos = glm::vec3 (-47.4999, -1.7, 7.29998);
+	body.scale = 1.18;
+	body.colour = vec4(0.5,0.5,0.5,1);
 	//body.orientation = glm::vec3(0.26, 0.02, 0.12);
 	MeshToDraw.push_back(body);
 	
 
 	Mesh panel("panel", Port_Panel_mod);
-	panel.pos = glm::vec3(-46.4999, 7.4, 3.19998);
+	panel.pos = glm::vec3(-45.8999, 8.6, 3.19998);
 	panel.scale = 0.370001;
 	//panel.orientation = glm::vec3(0.26, 0.02, 0.12);
 	MeshToDraw.push_back(panel);
@@ -311,7 +325,7 @@ int main(void)
 	//light2
 	Light light2;
 	light2.position = vec3(6.40004, 2.19991, 115.499);
-	light2.atten = vec3(1, 0.0459997, 4.53491e-31);
+	light2.atten = vec3(1, 0.0139997, 6.90513e-21);
 	light2.diffuse = vec3(1, 1, 1);
 	lights.Lights.push_back(light2);
 	//
@@ -343,10 +357,11 @@ int main(void)
 	
 
 	SpotLight spotLight1;
-	spotLight1.position = vec3(-48.5999, -1.7, 13.7);
+	spotLight1.position = vec3(-49.6999, -1.1, 10.4);
 	
-	spotLight1.atten = vec3(1, -0.455998, 0.0634822);
+	spotLight1.atten = vec3(1, -0.416999, 0.0503973);
 	spotLight1.direction = vec3(-1, 0, 0);
+	spotLight1.diffuse = vec3(1,0.5,0);
 	lights.SpotLights.push_back(spotLight1);
 	
 	SpotLight spotLight2;
@@ -414,9 +429,9 @@ int main(void)
 		glUniform3f(cameraPosLoc, cameraPos.x, cameraPos.y, cameraPos.z);
 #pragma endregion 	
 		////draw light sphere
-		/*drawLightSphere(lightSphere, shaderProgram);
-		drawSpotLightSphere(lightSphere, shaderProgram);*/
-
+	/*	drawLightSphere(lightSphere, shaderProgram);
+		drawSpotLightSphere(lightSphere, shaderProgram);
+*/
         //draw mesh
 			for (vector<Mesh>::iterator iter = MeshToDraw.begin(); iter != MeshToDraw.end(); iter++) {
 				Mesh mesh = *iter;
